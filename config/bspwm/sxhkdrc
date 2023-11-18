@@ -1,0 +1,125 @@
+#  ██████ ▒██   ██▒ ██░ ██  ██ ▄█▀▓█████▄  ██▀███   ▄████▄  
+#▒██    ▒ ▒▒ █ █ ▒░▓██░ ██▒ ██▄█▒ ▒██▀ ██▌▓██ ▒ ██▒▒██▀ ▀█  
+#░ ▓██▄   ░░  █   ░▒██▀▀██░▓███▄░ ░██   █▌▓██ ░▄█ ▒▒▓█    ▄ 
+#  ▒   ██▒ ░ █ █ ▒ ░▓█ ░██ ▓██ █▄ ░▓█▄   ▌▒██▀▀█▄  ▒▓▓▄ ▄██▒
+#▒██████▒▒▒██▒ ▒██▒░▓█▒░██▓▒██▒ █▄░▒████▓ ░██▓ ▒██▒▒ ▓███▀ ░
+#▒ ▒▓▒ ▒ ░▒▒ ░ ░▓ ░ ▒ ░░▒░▒▒ ▒▒ ▓▒ ▒▒▓  ▒ ░ ▒▓ ░▒▓░░ ░▒ ▒  ░
+#░ ░▒  ░ ░░░   ░▒ ░ ▒ ░▒░ ░░ ░▒ ▒░ ░ ▒  ▒   ░▒ ░ ▒░  ░  ▒   
+#░  ░  ░   ░    ░   ░  ░░ ░░ ░░ ░  ░ ░  ░   ░░   ░ ░        
+#      ░   ░    ░   ░  ░  ░░  ░      ░       ░     ░ ░      
+#                                  ░               ░        
+
+# User Options
+
+# Open Terminal (Kitty)
+super + Return
+	kitty
+
+# Menu Apps (Rofi)
+super + d 
+	OpenApps --menu
+
+# Hide Bar
+super +  {h, u}
+	HideBar {h, u}
+
+# Reload Sxhkd
+super + Escape
+	pkill -USR1 -x sxhkd; dunstify -u low -i ~/.config/bspwm/notifyIcons/reload.png 'sxhkd' 'The configuration file has been reloaded successfully!'
+
+# Reload Bspwm 
+super + alt + r 
+	bspc wm -r 
+
+# Close and kill
+super + {_,shift + }q
+	bspc node -{c,k}
+
+# ScreenShot 
+Print
+    screenshot --sel
+
+# Keybinds Controller
+F1
+    volume --toggle
+
+F2 
+    volume --dec
+
+F3
+    volume --inc
+
+F4
+    controller togglemic
+
+F5
+    brightness down
+
+F6
+    brightness up
+
+################################################################################
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# Focused desktop window gaps scroll
+super + button{4,5}
+	bspc config -d focused window_gap $((`bspc config -d focused window_gap` {-,+} 5 ))
+
+# Global window gaps scroll
+super + alt + button{4,5}
+	bspc config window_gap $(( $(bspc config window_gap) {-,+} 5 ))
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# rotate desktop
+super + r
+	bspc node @/ --rotate {90,-90}
+
+# Circulate the leaves of the tree
+super + c
+	bspc node @/ --circulate {backward,forward}
+
+# Make split ratios equal
+super + equal
+	bspc node @/ --equalize
+
+# Make split ratios balanced
+super + minus
+	bspc node @/ --balance
+
+# Preselect
+
+# Preselect Direction
+super + alt + {h,j,k,l}
+    bspc node -p {west,south,north,east}
+
+# Preselect ratio 
+super + ctrl + {1-9}
+    bspc node -o 0.{1-9}
+
+# Cancel the preselection for the focused node 
+super + alt + space 
+    bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+# Move and Resize
+
+# Expand a window by moving one of its side outward
+super + ctrl + {h,j,k,l}
+    bspc node -z {left -10 0,bottom 0 10,top 0 -10,right 10 0}
+
+# Contract a window by moving one of its side inward 
+super + ctrl + shift + {h,j,k,l}
+    bspc node -z {right -10 0,top 0 10,bottom 0 -10,left 10 0}
+
+# Move a floating window 
+super + shift + {h,j,k,l}
+    bspc node -v {-10 0,0 10,0 -10,10 0}

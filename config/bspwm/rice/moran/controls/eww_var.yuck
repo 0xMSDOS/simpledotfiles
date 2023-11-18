@@ -1,0 +1,42 @@
+;; MUSIC VAR
+(defpoll artUrl    :interval "1s" "getMusicArt art")
+(defpoll title  :interval "1s" "getMusicArt title")
+(defpoll artist :interval "1s" "getMusicArt artist")
+(defpoll album :interval "1s" "getMusicArt album")
+(defpoll len :interval "1s" "getMusicArt len")
+(defpoll lenMusic :interval "1s" "getTime lenMusic")
+(defpoll position :interval "1s" "getMusicArt position")
+(defpoll timer :interval "1s" "getTime time")
+(defpoll shuff :interval "1s" "getMusicArt shuffle")
+(defpoll loopS :interval "1s" "getMusicArt loop")
+(defpoll icon :interval "1s" "getMusicArt icon")
+
+;;
+(defpoll user :interval "100s" "whoami")
+
+;;
+(defpoll micro_icon :interval "1s" "controller iconmic")
+(defpoll micro_level :interval "1s" "controller microlevel")
+(defpoll micro_set :interval "1s" "controller setlevel")
+
+(defpoll br_icon :interval "1s" "brightness icon")
+(defpoll br_status :interval "1s" "brightness status")
+
+;; WIFI 
+(defpoll wifi-class :interval "1s" "../scripts/wifi --class")
+(defpoll wifi-icon :interval "1s" "../scripts/wifi --icons")
+(defpoll wifi-status :interval "1s" "../scripts/wifi --status")
+
+;; BLUETOOTH
+(defpoll blue-icon :interval "1s" "controller iconblue")
+(defpoll blue-class :interval "1s" "controller classBlue")
+(defpoll blue-status :interval "1s" "controller statusBlue")
+
+;; Airplane
+(defpoll airplane-icon :interval "1s" "controller iconAirplane")
+(defpoll airplane-status :interval "1s" "controller statusAirplane")
+
+;; CAL
+(defpoll calendar_day :interval "10h" "date '+%d'")
+(defpoll calendar_month :interval "10h" "date '+%m'")
+(defpoll calendar_year :interval "10h" "date '+%Y'")

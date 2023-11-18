@@ -1,0 +1,12 @@
+#!/bin/sh 
+
+DESKTOPID=$(bspc query -D -d '^9')
+
+# Get WindowID
+
+bspc subscribe node_add | while read -a arrayD ; do
+    WIN_ID=${arrayD[2]}
+    WID=${arrayD[4]}
+    # Condition
+    [ "$DESKTOPID" == "$WIN_ID" ] && bspc node "$WID" --state floating
+done

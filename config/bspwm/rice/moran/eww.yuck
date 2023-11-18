@@ -1,0 +1,188 @@
+
+(include "./defvars/_variables.yuck")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Left
+
+(defwidget launcher[]
+  (box :orientation "h" :class "launcher_icon" :tooltip "Launch apps"
+    (button :class "laun_icon" :style "background-image: url('images/icons/system/dos.png');" :onclick "OpenApps --menu")))
+
+(defwidget workspaces []
+  (literal :content workspace))
+
+
+(defwidget left []
+  (box :orientation "h" :space-evenly "false" :halign "start" :class "left" :spacing "12"
+    (launcher)
+    (workspaces)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Center
+
+(defwidget wintitle []
+  (label :text xtitle :class "wintitle"))
+
+(defwidget center []
+  (box :space-evenly "false" :halign "center" :orientation "h"
+    (wintitle)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Rights
+
+;; :style "background-image: url('images/icons/system/ajustes.png');"
+;; :style "background-image: url('${volume_icon}');"
+;; :style "background-image: url('${WIFIICON}');"
+
+(defwidget volume []
+  (eventbox :onhover "${eww} update volum=true" :onhoverlost "${eww} update volum=false"
+    (box :orientation "h" :space-evenly "false" :spacing "2"
+      (revealer :transition "slideleft" :reveal volum :duration "500ms"
+        (scale :class "volbar" :value volume_value :onchange "volume --set {}" :orientation "h" :flipped true :tooltip "Volume: ${volumen}%" :max 101 :min 0))
+            (button :class "trayicon" :onrightclick "OpenApps --soundcontrol" :onclick "volume --toggle" "${volume_icon}"))))
+
+(defwidget wifi []
+  (box :orientation "h"  			
+    (button :class "trayicon" :tooltip "${NETSTAT}" :onclick "wifi-panel" "${WIFIICON}")))
+
+(defwidget menu []
+  (eventbox :onhover "${eww} update op=true" :onhoverlost "${eww} update op=false"
+    (box :orientation "h" :space-evenly "false" :spacing "2" :hexpand "false"
+      (revealer :transition "slideleft" :reveal op :duration "400ms"
+        (box :orientation "h" :space-evenly "false"
+          (button  :class "trayicon" :tooltip "Open Control Menu" :onclick "controls/controls" "󰕮 ")))
+            (button :class "trayicon" :tooltip "Menu" "󰍜 "))))
+              (defvar op false)
+
+(defwidget right []
+  (box :spacing 5 :class "right_bar" :space-evenly "false" :orientation "h" :halign "end"
+    (volume)
+    (wifi)
+    (menu)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defwidget time []
+  (box :orientation "h" :class "time" :valign "end"
+    (button :onclick "scripts/calendar" :tooltip "${time}" :class "time-hour" "󰅐 ${hour}:${min}")))
+
+(defwidget rightH []
+  (box :spacing 5 :class "right_hbar" :space-evenly "false" :orientation "h" :halign "end"
+    (time)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Date and clear
+
+(defwidget infohour []
+  (box :class "firts-box" :orientation "v" :width 350 :spacing 15
+    (box :class "infohour-box" :orientation "h" :halign "center" :space-evenly "false" :spacing 15
+      (box :class "hour-box" "${hour}")
+        (box :class "blocks-boxes" :valign "center" :space-evenly "false" :orientation "v" :spacing 5
+          (box :class "block-red" "")
+            (box :class "block-green" "")
+              (box :class "block-brown" ""))
+                (box :class "min-box" "${min}"))
+                  (box :class "status-box" :spacing 10
+                    (nightLight)
+                      (weather))
+                        (date-system)
+                          (progress_bat)
+                         ))
+
+(defwidget weather []
+  (box :class "temp-box" :style "background-image: url('../../notifyIcons/blue-sky.jpg');" :space-evenly "false" :spacing 5 :orientation "v"
+    (box :class "box-city" :hexpand true :halign "end" city)
+      (box :class "box-temp" :halign "end" "${temp}°C")
+        (box :class "box-emoji" :halign "start" "${emoji}")))
+
+(defwidget nightLight []
+  (box :class "my-box" :space-evenly "false" :orientation "v"
+    (box :class "icon-box" :space-evenly "false" :orientation "v"
+     (overlay :valign "center"
+      (button :class "icon-btn ${process == "On" ? "icon-btn-on" : "icon-btn-off"}" :tooltip "${process}" :onclick "nightLight toggle" "󰖔")
+        (label :class "night-txt" :halign "end" :text "${process}" :limit-width 10)))
+          (box :class "pacman-box" :space-evenly "false" :orientation "h"
+           (overlay :valign "center" :halign "start"
+            (button :class "pacman-btn" :onclick "kitty $SHELL -c 'paru -Syu' &" "${pacman-icon}")
+              (label :class "pacman-txt" :halign "end" :text "${package}" :limit-width 10)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Date sys circle progress
+(defwidget system [tip value css icon] 
+  (box :class "progress" 
+    (circular-progress :class css :value value :thickness 15 :tooltip tip
+      (overlay :valign "center"
+        (label :class "icon" :text icon)))))
+
+(defwidget cpu []
+  (system :css "cpu" :tip "CPU ${cpu}%" :value cpu :icon ""))
+(defwidget ram []
+  (system :css "ram" :tip "RAM ${ram_mb}MB" :value ram :icon "󰍛"))
+(defwidget disk []
+  (system :css "disk" :tip "${disk}%" :value disk :icon "󰨣"))
+(defwidget temp [] 
+  (system :css "temp" :tip "Temperature ${tempe}°C" :value tempe :icon ""))
+
+(defwidget date-system []
+  (box :class "date-sys":spacing 10
+      (cpu)
+      (ram)
+      (temp)
+      (disk)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Progress Battery
+(defwidget progress_bat []
+  (overlay :class "progress-overlay"
+    (progress :width 200
+              :class "bat-first ${bat_capacity > 95 ? "bat-full" : bat_capacity > 50 ? "bat-norm" : bat_capacity > 20 ? "bat-warn" : "bat-risk"}"
+              :value {bat_capacity > 95 ? 100 : bat_capacity})
+      (box :class "label-box" :orientation "v" :space-evenly "false" :hexpand true :valign "center"
+        (label :text "Battery ${bat_status}" :halign "start" :class "label-text")
+        (label :text "${bat_capacity}%" :halign "start" :class "label-text"))
+      (box :class "icon-s" :orientation "v" :space-evenly "false" :valign "center"
+        (label :text "${bat_icon}" :halign "end" :class "icon-class ${bat_capacity > 95 ? "icon-full" : bat_capacity > 50 ? "icon-norm" : bat_capacity > 20 ? "icon-warn" : "icon-risk"}"))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;(defwidget wid-controls [])
+
+;;(defwidget wifi-btn []
+ ;;(wid-controls :css "wifi-control-btn" :tooltip "${NETSTAT}" )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Widget and Window bar
+(defwidget bar []
+  (box :class "eww_bar" :orientation "h"
+    (left)
+      (center)
+  (box :class "eww_bw" :orientation "h" :halign "end" :space-evenly "false" :spacing 5
+    (right)
+      (rightH))))
+
+(defwindow bar
+   :geometry (geometry :x "0%"
+                       :y "0.5%"
+                       :width "90%"
+                       :height "50px"
+                       :anchor "top center")
+   :stacking "fg"
+   :reserve (struts :distance "65px" :side "top")
+   :windowtype "dock"
+   :wm-ignore false
+ (bar))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defwindow calendar
+    :geometry (geometry :x "0%"
+                        :y "0%"
+                        :width "300px"
+                        :anchor "center center")
+                :stacking "fg"
+                :windowtype "dialog"
+                (infohour)
+                  )
+
+;;
+
+
+(defwindow battery
+  :geometry (geometry :x "0%"
+                      :y "-1%"
+                      :width "350px"
+                      :anchor "left bottom"
+                      :stacking "overlay")
+                      (progress_bat))

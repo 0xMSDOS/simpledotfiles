@@ -1,0 +1,155 @@
+
+(include "eww_var.yuck")
+
+;; Music Control
+
+(defwidget musiccontrol []
+    (box    :class "controlbox" :space-evenly "false"
+        (box :class "cover" :style "background-image: url('${artUrl}');"
+        (box :class "gradient" :orientation "v" :space-evenly "false"
+        (box :class "info"  :orientation "v" :space-evenly "false" :spacing 10
+            (label :class "title" :text "${title}" :limit-width 50 :wrap true :xalign 0)
+            (label :class "artist"  :text "${artist}" :limit-width 50 :wrap true :xalign 0)
+            (label :class "album"   :text "${album}" :limit-width 50  :wrap true :xalign 0)
+        (box  :space-evenly "false" :orientation "v" :valign "END" :vexpand true (eventbox :cursor "pointer" :visible {len != "null"} :class "progress" :hexpand true
+            (scale :value {position == "null" ? 0 : position} :min 0 :max {len} :onchange "playerctl -p spotify position {}"))
+        (box :hexpand false :space-evenly false :class "inferior" :spacing 15 (label :class "app" :text "󰓇")
+        (box :class "position" :hexpand false :visible {len != "null"} :space-evenly false :spacing 3 (label :class "time" :text {position == "null" ? "" : timer }) (label :class "time" :text {len == "null" ? "" : "/"}) (label :class "time" :text {len == "null" ? "" : lenMusic}) )))
+    (box :class "controls" :halign "start" :hexpand false :spacing 15 (eventbox :cursor "pointer" (button :onclick "playerctl -p spotify shuffle toggle" :class "shuffle ${shuff == 'On' ? "on" : "off"}" :tooltip {shuff} :visible {len != "null"} ""))
+         (eventbox :cursor "pointer" (button :onclick {loopS == "None" ? "playerctl -p spotify loop playlist" : loopS == "Playlist" ? "playerctl -p spotify loop track" : "playerctl -p spotify loop none"} :class "loop ${loopS == 'Playlist' || loopS == 'Track' ? "on" : "off"}" :tooltip {loopS} :visible {loopS != "null"} {loopS == "Track" ? "󰑘" :loopS == "Playlist" ? "󰑖" : "󰑗"}))
+         (eventbox :cursor "pointer" (button :class "previous" :onclick "playerctl -p spotify previous" ""))
+         (eventbox :cursor "pointer" (button :class "toggle" :width 20 :onclick "playerctl -p spotify play-pause" "${icon}"))
+         (eventbox :cursor "pointer" (button :class "next" :onclick "playerctl -p spotify next" ""))))))))
+
+
+;;
+
+;;
+(defwidget controllerB []
+    (box :class "controller-box"  :orientation "h"  :space-evenly "false" :halign "start" :spacing 5 :hexpand "false"
+    (box :class "controller-s"    :orientation "v" :hexpand "false"
+   (box :class "first-row" :space-evenly "false" :orientation "v"
+    
+        (box :class "controller-box" :space-evenly "false" :orientation "v"
+        (box :class "controller-buttons-box" :space-evenly "false"
+        (button :class "controller-button ${blue-class == "C" || blue-class == "DC" ? "controller-button-on" : "controller-button-off"}" :onclick "controller toggleblue" "${blue-icon}") 
+        (button :tooltip "Bluetooth Config" :class "controller-arrow-btn ${blue-class == "C" || blue-class == "DC" ? "controller-arrow-btn-on" : "controller-arrow-btn-off"}" :onclick "OpenApps --blueberry" ""))
+        (label :class "controller-label" :text "${blue-status}" :limit-width 14))
+        
+        (box :class "controller-box" :space-evenly "false" :orientation "v"
+        (box :class "controller-buttons-box" :space-evenly "false"
+        (button :class "controller-button ${wifi-class == "CO" ? "controller-button-on" : "controller-button-off"}" :onclick "../scripts/wifi --toggle" "${wifi-icon}") 
+        (button :tooltip "Ethernet config" :class "controller-arrow-btn ${wifi-class == "CO" ? "controller-arrow-btn-on" : "controller-arrow-btn-off"}" :onclick "OpenApps --ethernet" ""))
+        (label :class "controller-label" :text "${wifi-status}" :limit-width 14)))
+    (box :class "first-row" :space-evenly "false" :orientation "v"  
+        (box :class "controller-box" :space-evenly "false" :orientation "v"
+        (box :class "controller-buttons-box" :space-evenly "false"
+        (button :class "controller-button ${airplane-icon == "󰀝 " ? "controller-button-on" : "controller-button-off"}" :onclick "controller toggleAirplane" "${airplane-icon}") 
+        (button :tooltip "None config" :class "controller-arrow-btn ${airplane-icon == "󰀝 " ? "controller-arrow-btn-on" : "controller-arrow-btn-off"}" ""))
+        (label :class "controller-label" :text "Airplane" :limit-width 14))
+        
+        (box :class "controller-box" :space-evenly "false" :orientation "v"
+        (box :class "controller-buttons-box" :space-evenly "false"
+        (button :class "controller-button ${micro_icon == " " ? "controller-button-off" : "controller-button-on"}" :onclick "controller togglemic" "${micro_icon}") 
+        (button :tooltip "None config" :class "controller-arrow-btn ${micro_icon == " " ? "controller-arrow-btn-off" : "controller-arrow-btn-on"}" ""))
+        (label :class "controller-label" :text "Micro" :limit-width 14))))
+    (box :class "control-music" :hexpand "false" :vexpand "false"
+    (musiccontrol))      
+    ))
+
+
+
+;; 
+(defwidget labelbox []
+    (box    :class "namebox"
+    :orientation "h"
+    :space-evenly "false"
+    (label  :class "text"
+            :text "Hi ${user}!")
+    ))
+(defwidget  name []
+
+ (box :class "first-box" :orientation "h"
+    (box    :class "namebox"
+            :orientation "h"
+            :space-evenly "false"
+            :halign  "start"
+    (image :path "../images/icons/system/infowidgets.png" :image-width 50 :image-height 50)
+    (labelbox))
+    (box :class "logout"
+         :orientation "h"
+         :halign "end"
+         :space-evenly "false"
+    (button :class "logout-bn" :onclick "kill -9 -1" :tooltip "Logout" :style "background-image: url('../images/icons/icons_control/logout.png');"))))
+
+;;
+
+(defwidget brightnessWi []
+    (box :class "bright-ctl" :hexpand true
+      (overlay
+       (box :class "scale"
+        (scale :value br_status :onchange "brightness set {}" :min 0 :max 101))
+          (label :halign "start" :text "${br_icon}"))))
+
+
+;;
+(defwidget cal []
+    (box :class "calendar-box"
+         :orientation "v"
+    (box :class "call-inner-box"
+         :orientation "v"
+         :space-evenly "false"
+        (calendar :class "cal"
+                            :day calendar_day
+                            :month calendar_month
+                            :year calendar_year))))
+
+;; Powermenu
+
+(defwidget powermenu []
+    (box :class "power-firtsbox" :orientation "v" :space-evenly "false"
+        (box :class "box-ctn" :orientation "v" :spacing 10 :vexpand true
+        (box :class "power-off-box" :orientation "h" :space-evenly "false"
+            (button :class "poweroff-btn" :onclick "poweroff" :tooltip "Porweroff..." "󰐥"))
+        (box :class "power-off-box" :orientation "h" :space-evenly "false"
+            (button :class "reboot-btn" :onclick "reboot" :tooltip "Reboot..." "󰑓"))
+        (box :class "power-off-box" :orientation "h" :space-evenly "false"
+            (button :class "lock-btn" :onclick "physlock -d" :tooltip "Lock..." "")))))
+
+;;
+(defwidget controlcenter []
+    (box    :class "centerbox"
+            :orientation "v"
+            :space-evenly "false"
+            :width 250
+            :hexpand "false"
+            :spacing 10
+    (box :class "boxcent" :hexpand "false")
+   (name)    
+   (controllerB)
+   (cal)) )          
+
+
+;; Window
+(defwindow search
+    :geometry (geometry :x "-10px"
+                        :y "6%"
+                        :anchor "right top"
+                        :stacking "fg"
+                        )
+                (controlcenter)
+                    )
+
+(defwindow controls
+    :geometry (geometry :x "0%"
+                        :y "-1%"
+                        :anchor "center bottom"
+                        :stacking "overlay")
+                        (brightnessWi))
+
+(defwindow wipowermenu
+    :geometry (geometry :x "1%"
+                        :y "0%"
+                        :anchor "left center")
+                        (powermenu))
+

@@ -1,0 +1,40 @@
+#!/bin/sh
+source $HOME/.config/bspwm/scripts/getMusicArt
+
+function formatTime() {
+  local seconds=$1
+
+  if [[ $seconds -lt 3600 ]]; then
+    local minutes=$((seconds / 60 ))
+    local rem_seconds=$((seconds % 60))
+    printf "%02d:%02d" $minutes $rem_seconds
+  else
+    local hours=$((seconds / 3600))
+    local minutes=$(( (seconds % 3600) / 60 ))
+    local rem_seconds=$((seconds % 60))
+    printf "%02d:%02d:%02d" $hours $minutes $rem_seconds
+  fi
+}
+
+function get_FinallyTime(){
+    local seconds=$1
+    if [[ $seconds -lt 3600 ]]; then
+        local minutes=$((seconds / 60))
+        local rem_seconds=$((seconds % 60))
+        printf "%02d:%02d" $minutes $rem_seconds
+    fi
+}
+# Position 
+get_Position=$(getPosition)
+formatedTime=$(formatTime get_Position)
+
+#Music Lenght
+get_Len=$(getLen)
+lenformatedTime=$(get_FinallyTime get_Len)
+
+case $1 in
+  time)
+    echo $formatedTime ;;
+  lenMusic)
+    echo $lenformatedTime;;
+esac

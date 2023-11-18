@@ -1,0 +1,394 @@
+.eww_bar {
+    background-color: $bg; // 282726
+    padding: 0.3rem;
+    border-radius: 10px;
+    border: solid 6px $bg;
+}
+
+.launcher_icon {
+    background-color: $contrastbg;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.laun_icon {
+    background-repeat: no-repeat;
+    background-size: 30px;
+    min-height: 20px;
+    min-width: 30px;
+    margin: 2px;
+    padding: 0.2rem 0;
+}
+
+
+.works {
+    font-family: "Material Design Icons Desktop";
+    padding: 0.4rem 0.3rem 0.4rem 0.3rem;
+    margin: 2px 0 0;
+    background-color: $contrastbg;
+    border-radius: 5px;
+    border: solid 1px $contrastbg;
+}
+
+.workspace-focused {
+    font-size: 14px;
+    font-weight: bold;
+    color: #AF3029;
+    text-shadow: 0px 0px 3px $gruvbox-red;
+    margin: 0.1rem 0 0.1rem 0;
+    padding: 0 5px;
+}
+
+.workspace-occupied {
+    font-size: 14px;
+    font-weight: bold;
+    color: $barForeground;
+    margin: 0.1rem 0 0.1rem 0;
+    padding: 0 5px;
+}
+
+.workspace-empty {
+    font-size: 14px;
+    font-weight: bold;
+    color: #101419;
+    margin: 0.1rem 0 0.1rem 0;
+    padding: 0 5px;
+}
+
+.wintitle {
+    background-color: $contrastbg;
+    color: $barForeground;
+    font-weight: bold;
+    border-radius: 4px;
+    margin: 2px 0;
+    padding: 0.2rem 0.3rem;
+    font-size: 13px;
+    text-shadow: 0px 0px 3px $gruvbox-green;
+    font-family: Iosevka Nerd Font;
+    border: solid 2px $contrastbg;
+}
+
+.trayicon {
+    // background-repeat: no-repeat; 
+    // background-size: 20px;
+    color: $barForeground;
+    font-family: Iosevka Nerd Font;
+    font-size: 15px;
+    text-shadow: 0px 0px 3px $gruvbox-green;
+    min-height: 20px;
+    min-width: 20px;
+    margin: 0.3rem 0 0;
+}
+
+scale trough {
+    all: unset;
+    background-color: #FAD7A0;
+    border-radius: 8px;
+    min-height: 15px;
+    min-width: 120px;
+}
+
+.volbar trough highlight {
+    background: linear-gradient(#301929, #2C3639);
+    border-radius: 8px;
+}
+
+.right_bar {
+    background-color: $contrastbg;
+    border-radius: 5px;
+    min-height: 20px;
+    min-width: 60px;
+    margin: 2px;
+    padding: 0.2rem 0.3rem;
+    border: solid 1px $contrastbg;
+}
+
+.right_hbar {
+    background-color: $contrastbg;
+    border-radius: 5px;
+    min-height: 20px;
+    min-width: 60px;
+    margin: 2px;
+    padding: 0.2rem 0;
+    border: solid 1px $contrastbg;
+}
+
+.time {
+    font-family: Iosevka Nerd Font;
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 0 5px 0 5px;
+    color: $barForeground;
+    text-shadow: 0px 0px 3px $gruvbox-green;
+}
+
+// Infohour
+
+.infohour-box{
+    padding-top: 0.5em;
+    .hour-box{
+        font-size: 80px;
+        font-family: Iosevka Nerd Font Mono;
+        font-weight: bold;
+        color: $gruvbox-aqua;
+    }
+    .blocks-boxes {
+        background-color: transparent;
+
+        .block-red{
+            color: $gruvbox-red;
+            font-size: 12px;
+        }
+        .block-green{
+		color: $gruvbox-green;
+            font-size: 12px;
+        }
+        .block-brown{
+            color: $gruvbox-yellow;
+            font-size: 12px;
+        }
+    }
+    .min-box{
+        font-size: 80px;
+        font-family: Iosevka Nerd Font Mono;
+        font-weight: bold;
+        color: $gruvbox-aqua;
+    }
+    
+}
+
+// Test
+.firts-box{
+    background-color: $contrastbg;
+    padding: 0px 10px 5px 10px;
+    .temp-box{
+        //background-color: #acb0d0;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        border-radius: 15px;
+        padding: 5px 4px 5px 4px;
+
+        .box-city{
+            color: $black;
+            font-size: 15px;
+            font-family: Iosevka Nerd Font Mono;
+            font-weight: bold;
+        }
+        .box-temp{
+            color: $gruvbox-purple;
+            font-size: 1.0rem;
+            font-family: Iosevka Nerd Font Mono;
+            font-weight: bold;
+        }
+        .box-emoji{
+            font-size: 30px;
+            color: $bg;
+        }
+    
+    }
+}
+.status-box{
+    background-color: $contrastbg;
+}
+
+.my-box{
+    background-color: $bg;
+    border-radius: 15px;
+    padding: 5px 4px 5px 4px;
+}
+
+.icon-box{
+    border-radius: 10px;
+    margin: 2px 2px;
+    .icon-btn{
+        font-size: 40px;
+        font-family: Iosevka Nerd Font Mono;
+        font-weight: bold;
+        border-radius: 10px;
+        padding: 0px 55px;
+        &:hover {background-color: #F7DDD0;}
+        
+    }
+    .icon-btn-on{
+        color: #EBEF95;
+        font-size: 30px;
+        font-family: Iosevka Nerd Font Mono;
+        font-weight: bold;
+        background-color: #d5c4a1;
+        border-radius: 10px;
+        padding: 0px 75px;
+    }
+    .icon-btn-off{
+        color: #778080;
+        font-size: 30px;
+        font-family: Iosevka Nerd Font Mono;
+        font-weight: bold;
+        background-color: $contrastbg;
+        border-radius: 10px;
+        padding: 0px 75px;
+    }
+    .night-txt{
+        color: #FD8A8A;
+        font-weight: bold;
+        border-radius: 10px;
+        margin: 2px 2px;
+        padding: 10px 15px 10px 15px;
+        font-size: 15px;
+    }
+}
+
+.pacman-box{
+    border-radius: 10px;
+    margin: 2px 2px;
+}
+
+.pacman-btn{
+    font-size: 30px;
+    font-family: Iosevka Nerd Font Mono;
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 0px 75px;
+    color: #EFB495;
+    background-color: $contrastbg;
+    &:hover {background-color: #F7DDD0;}
+}
+
+.pacman-txt {
+    color: #FD8A8A;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 2px 2px;
+    padding: 10px 15px 10px 15px;
+    font-size: 15px;
+}
+
+//  Test
+.progress {
+    background-color: $contrastbg;
+    border-radius: 15px;
+    margin: 2px;
+}
+.date-sys {
+    background-color: $bg;
+    border-radius: 1rem;
+    padding: 2px 4px 2px 4px;
+    
+    circular-progress {
+        background-color: #161616;
+        margin: 5px 5px 5px 5px;
+
+        &.ram {
+            color: #999478;
+        }
+        &.cpu {
+            color: #956849;
+            label {margin-left: 1px;}
+        }
+        &.disk {
+            color: #615e5b;
+        }
+        &.temp {
+            color: #efe97f;
+        }
+    }
+}
+
+.bat-first{
+    border-radius: 0.5em;
+    trough {
+        padding: 3em 0 3em 0;
+        background-color: #3B5249;
+        border-radius: 0.5em;
+        progress {
+            padding: 3em 1em 3em 1em;
+            background-color: rgba(darken(#519872, 10%), 0.8);
+            border-radius: 0.5em;
+          }
+    }
+}
+.bat-full{
+    trough {
+        background-color: #3B5249;
+        progress {
+            background-color: #519872;
+        }
+    }
+}
+
+.bat-norm{
+    trough {
+        background-color: #333456;
+        progress {
+            background-color: rgba(darken(#595B83, 10%), 0.8);
+        }
+    }
+}
+
+.bat-warn {
+    trough {
+        background-color: #EEB76B;
+        progress {
+            background-color: rgba(darken(#FFD369, 10%), 0.8);
+        }
+    }
+}
+
+.bat-risk {
+    trough {
+        background-color: #2C3639;
+        progress {
+            background-color: rgba(darken(#cc241d, 10%), 0.8);
+        }
+    }
+}
+
+.label-text {
+    color: #0F0E0E;
+    font-size: 15px;
+    font-family: Iosevka Nerd Font Mono;
+    font-weight: bold;
+    margin: 4px 2px 4px 2px;
+    text-shadow: 0px 0px 3px #D7BC9E;
+}
+
+.icon-class {
+    color: #2C3639;
+    font-size: 40px;
+    font-family: Iosevka Nerd Font Mono;
+    font-weight: bold;
+    margin: 4px 5px;
+    text-shadow: 0px 0px 3px #03C988;
+}
+
+.icon-full {
+    color: #2C3639;
+    font-size: 40px;
+    font-family: Iosevka Nerd Font Mono;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px #03C988;
+}
+
+.icon-norm {
+    color: #2C3639;
+    font-size: 40px;
+    font-family: Iosevka Nerd Font Mono;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px #778080;
+}
+
+.icon-warn {
+    color: #FFD369;
+    font-size: 40px;
+    font-family: Iosevka Nerd Font Mono;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px #2C3639;
+}
+
+.icon-risk {
+    color: #2C3639;
+    font-size: 40px;
+    font-family: Iosevka Nerd Font Mono;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px #FD8A8A;
+}

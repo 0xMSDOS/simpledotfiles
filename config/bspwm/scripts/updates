@@ -1,0 +1,36 @@
+#!/bin/sh
+
+DIR="$HOME/.config/bspwm/rice/moran/images/icons/system/"
+
+function getPackages () {
+  update=$(($(checkupdates 2>/dev/null | wc -l || echo 0) + $(paru -Qua 2>/dev/null | wc -l || echo 0)))
+  echo "${update:-0}"
+}
+
+function getIcon () {
+  local getNum=$(getPackages)
+  if [[ $getNum -gt 0 ]]; then
+    echo "󰮯"
+  else
+    echo "󰊠"
+  fi
+}
+
+function openTerm () {
+  local getNum=$(getPackages)
+  if [[ $getNum -gt 0 ]]; then
+    kitty $SHELL -c 'paru -Syu' &
+  else
+    echo "None"
+  fi
+}
+
+case $1 in
+  packages)
+    getPackages ;;
+  icon)
+    getIcon ;;
+  update)
+    openTerm ;;
+esac
+

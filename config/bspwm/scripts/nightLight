@@ -1,0 +1,32 @@
+#!/bin/sh
+
+
+
+function toggleRedshift () {
+  if ps aux | grep "[r]edshift" >/dev/null; then
+    pkill redshift
+    dunstify --icon=$HOME/.config/bspwm/notifyIcons/sunlight.png --appname=Redshift --urgency=critical "Night light off, watch your eyes pls 😕"
+  else
+    redshift >/dev/null 2>&1 &
+    dunstify --icon=$HOME/.config/bspwm/notifyIcons/moonlight.png --appname=Redshift --urgency=low "Night light on, your eyes are safe 🙂"
+  fi
+}
+
+
+function process () {
+ if ps aux | grep "[r]edshift" >/dev/null; then
+   echo "On"
+ else
+   echo "Off"
+ fi
+}
+
+case $1 in
+  toggle)
+    toggleRedshift
+    ;;
+  process)
+    process 
+    ;;
+esac
+

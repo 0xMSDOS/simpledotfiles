@@ -1,0 +1,38 @@
+#!/bin/sh
+# Dependencies: maim, xclip and pngquant.
+
+date=$(date +%H:%M:%S-%Y-%M-%d)
+dir="$(xdg-user-dir PICTURES)/ScreenShots"
+filename="$dir/screenshots-$date.png"
+filenameq="$dir/screenshot-$date-q.png"
+
+
+if [[ ! -d "$dir" ]]; then
+    mkdir "$dir" || exit 
+fi 
+
+notify () {
+    dunstify --replace=699  --icon="$1" "Screenshot" "$2"
+}
+
+screenshot_Select() {
+    maim -u -s "$filename"
+    pngquant --output $filenameq -- "$filename" | exit 
+    rm $filename | xclip -selection clipboard -t image/png -i $filenameq
+    notify "$filenameq" "$1"
+}
+
+screenshot () {
+    maim -u "$filename"
+    pngquant --output $filenameq -- "$filename" | exit 
+    rm $filename | xclip -selection clipboard -t image/png -i $filenameq
+    notify "$filenameq" "$1"
+}
+
+if [[ "$1" == "--sel" ]]; then 
+    screenshot_Select "Screenshot of selected area saved and copied to clipboard"
+fi
+
+if [[ "$1" == "--ss" ]]; then
+    screenshot "Screenshot saved and copied to clipboard"
+fi

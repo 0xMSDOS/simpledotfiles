@@ -1,0 +1,16 @@
+#!/bin/sh 
+
+calendar () {
+  FILE="$HOME/.cache/calendar.file"
+
+  if [[ ! -f "$FILE" ]]; then
+    touch "$FILE"
+    eww -c $HOME/.config/bspwm/rice/moran/ open calendar
+  else
+    eww -c $HOME/.config/bspwm/rice/moran close calendar
+    rm "$FILE"
+  fi 
+
+}
+
+calendar

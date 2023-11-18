@@ -1,0 +1,136 @@
+
+* {
+  background: #0d0d0d;
+  foreground: #E3DDD3;
+  
+  pmt-background: #ffffff;
+  ety-background: #FFF3DA;
+  foreground-secondary: #A19782;
+
+}
+
+configuration {
+  font: "Iosevka Nerd Font 8";
+  show-icons: true;
+  display-run: "Commands";
+  display-drun: "Applications";
+  display-window: "Windows";
+  drun-display-format:  "{name}";
+}
+
+window {
+  width: 41%;
+  x-offset: 0px;
+  y-offset: -24px;
+  location: center;
+  border: 80px;
+  border-color: @background;
+  border-radius: 0px;
+  transperency: "real";
+}
+
+prompt {
+  enabled: false;
+  text-color: @background;
+  background-color: @foreground;
+  border-radius: 0px 0px 0px 0px;
+  padding: 1.5%  0.74%;
+}
+
+entry {
+  expand: true;
+  blink: true;
+  text-color: @background;
+  background-color: @foreground;
+  placeholder-color: @foreground-secondary;
+  placeholder: "  Search...";
+  horizontal-align: 0.5;
+  padding: 10px 8px;
+  border: 0px 0px 0px 0px;
+  border-radius: 6px;
+  border-color: @background;
+}
+
+inputbar {
+  spacing: 5px;
+  children: [ prompt, entry ];
+  margin: 2px 1.75em;
+  padding: 30px 30px 25px;
+  background-color: @background;
+}
+
+listview {
+  cycle: false;
+  dynamic: true;
+  layout: vertical;
+  columns: 3;
+  lines: 3;
+  background-color: @background;
+  padding: 0px 1em 1em;
+  spacing: 0%;
+}
+
+mode-switcher {
+  background-color: @background;
+  margin: 0.3em 0.2em 0.25em 0em;
+}
+
+button {
+  background-color: @foreground-secondary;
+  text-color: @background;
+  padding: 0.5em;
+  margin: 0em 0.25em 0em 0.2em;
+  border-radius: 6px;
+}
+
+button selected {
+  background: @background;
+  border: 0px 0px 0px 2px;
+  border-color: @background;
+  border-radius: 4px;
+}
+
+mainbox {
+  children: [ inputbar, listview, mode-switcher ];
+  background-color: @background;
+  spacing: 2%;
+  border:  4px;
+  border-color: @background;
+}
+
+element {
+  orientation: vertical;
+  text-color: @foreground;
+  background-color: @background;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+element-icon, element-text {
+  text-color: inherit;
+  background-color: inherit;
+}
+
+element-icon {
+  size: 25px;
+  horizontal-align: 0.5;
+  vertical-align: 0.5;
+  border: 10px;
+  border-color: transparent;
+}
+
+element-text {
+  font: "Iosevka Nerd Font 10";
+  expand: true;
+  horizontal-align: 0.5;
+  vertical-align: 0.5;
+  margin: 0px 5px 0px 5px;
+}
+
+element selected {
+  text-color: @foreground;
+  background-color: @foreground-secondary;
+  border: 0px 0px 0px 0px;
+  border-color: @foreground;
+}
+

@@ -1,0 +1,63 @@
+#!/bin/sh
+
+#!/usr/bin/env sh
+
+temp_path="/sys/class/power_supply/BAT*"
+
+function getStatus () {
+	local status_bat=$(cat $temp_path/status)
+	local capacity_bat=$(cat $temp_path/capacity)
+
+	if [[ $status_bat == "Charging" ]]; then
+		fi_status="$status_bat"
+	else
+		if [[ $capacity_bat -ge 100 ]]; then
+			fi_status="Fully Charged!"
+		else
+			fi_status="Discharging"
+		fi
+	fi 
+	echo "$fi_status"
+}
+
+function getBattery () {
+	local capacity_bat=$(cat $temp_path/capacity)
+	echo "$capacity_bat"
+}
+
+function getIcon () {
+	local capacity_bat=$(cat $temp_path/capacity)
+	local status_bat=$(cat $temp_path/status)
+	if [ $status_bat == "Charging" ] && [ $capacity_bat -gt 95 ]; then
+		echo "󱊦"
+	elif [ $status_bat == "Charging" ] && [ $capacity_bat -gt 50 ]; then
+		echo "󱊥"
+	elif [ $status_bat == "Charging" ] && [ $capacity_bat -gt 20 ]; then
+		echo "󱊤"
+	elif [ $status_bat == "Charging" ] && [ $capacity_bat -gt 0 ]; then
+		echo "󰢟"
+	else
+		if [[ $capacity_bat -gt 95 ]]; then
+			echo "󱊣"
+		elif [[ $capacity_bat -gt 50 ]]; then
+			echo "󱊢"
+		elif [[ $capacity_bat -gt 20 ]]; then
+			echo "󱊡"
+		else
+			echo "󱃍"
+		fi
+	fi
+
+}
+
+if [[ $1 == "getBat" ]]; then
+    getBattery
+fi
+
+if [[ $1 == "status" ]]; then
+	getStatus
+fi
+
+if [[ $1 == "getIcon" ]]; then
+	getIcon
+fi

@@ -1,0 +1,19 @@
+#!/bin/sh 
+
+function Hide () {
+    eww -c $HOME/.config/bspwm/rice/moran/ open --toggle bar | pkill tint2 | bspc config top_padding 2 
+    bspc config bottom_padding 2
+}
+
+function unHide() {
+    eww -c $HOME/.config/bspwm/rice/moran/ open --toggle bar | tint2 -c $HOME/.config/tint2/fin.tint2rc
+}
+
+
+if [[ "$1" == "h" ]]; then
+    Hide
+fi 
+
+if [[ "$1" == "u" ]]; then
+    unHide 
+fi

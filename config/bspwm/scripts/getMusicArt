@@ -1,0 +1,183 @@
+#!/bin/sh
+
+appMusic=""
+# getArt
+
+
+
+#function getArtMpd () {
+  
+#}
+
+#controlMusic
+
+#priorityMusic
+
+if [[ $(pgrep mpd) ]] && [[ $(pgrep spotify) ]]; then
+  pkill mpd
+  appMusic='spotify'
+elif [[ $(pgrep mpd) ]]; then
+  appMusic='mpd'
+elif [[ $(pgrep spotify) ]]; then
+  appMusic='spotify'
+fi 
+
+if [[ $appMusic == *"mpd"* ]]; then
+  toggle="mpc -q toggle"
+  next="mpc -q next"
+  prev="mpc -q prev"
+  stop="mpc -q stop"
+  status="mpc status"
+  title="$(mpc --format '[%title%|%file%]' current)"
+  artist="$(mpc --format '[$artist%]' current)"
+else 
+  if [[ $appMusic == *"spotify"* ]]; then
+    next="playerctl -p spotify next"
+    prev="playerctl -p spotify previous"
+    stop="playerctl -p spotify stop"
+    status="playerctl -p spotify status"
+    toggle="playerctl -p spotify play-pause"
+    title="playerctl -p spotify metadata -f '{{title}}'"
+    artist="playerctl -p spotify metadata -f '{{artist}}'"
+    album="playerctl -p spotify metadata -f '{{album}}'"
+  else 
+    prev=""
+    toggle=""
+    stop=""
+    next=""
+    status=""
+    title=""
+  fi
+fi
+
+
+status="$($status)"
+
+path="/tmp/spotifytmp"
+coverpath=$path/cover.png
+
+if [[ $appMusic == *"spotify"* ]]; then
+  if [[ ! -d $path ]]; then
+    mkdir -p $path
+  fi
+fi
+
+if [[ $appMusic == *"spotify"* ]]; then
+  artlink="$(playerctl metadata mpris:artUrl | sed -e 's/open.spotify.com/i.scdn.co/g')"
+fi
+
+function getArtSpo () {
+  if [ $(playerctl metadata mpris:artUrl) ]; then
+    curl -s "$artlink" --output $coverpath
+    echo "$coverpath"
+  fi
+}
+
+function getLen () {
+  if [[ $appMusic == *"spotify"* ]]; then
+    local length=$(playerctl -p spotify metadata mpris:length 2>/dev/null)
+      if [[ $length =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
+        plen=$((length/1000000))
+      fi
+    else
+      plen="A"
+  fi
+  echo $plen
+}
+
+getPosition () {
+  if [[ $appMusic == *"spotify"* ]]; then
+    local position=$(playerctl -p spotify position)
+    covert=$(python -c "print($position*1000000)")
+    convertEnd=$(echo "scale=0; $covert/1000000" | bc)
+  else
+    convertEnd="B"
+  fi
+
+    echo $convertEnd
+}
+
+function getConvert () {
+  if [[ $appMusic == *"spotify"* ]]; then
+    local seconds=$(getPosition)
+    convertSi=$(echo "scale=0; $seconds/60" | bc)
+  fi
+  echo $convertSi
+}
+
+function getShuffle () {
+  local shuffle=$(playerctl -p spotify shuffle)
+  if [[ $shuffle == "On" ]]; then
+     stats="On"
+  elif [[ $shuffle == "Off" ]]; then
+     stats="Off"
+  fi
+  echo $stats
+}
+
+function getLoop () {
+  loop=$(playerctl -p spotify loop)
+  echo $loop
+}
+
+length=$(getLen)
+position=$(getPosition)
+seconds=$(getConvert)
+shuffle=$(getShuffle)
+
+case $1 in
+  icon)
+    if [[ $status = *"laying"* ]]; then
+      echo ""
+    elif [[ $status = *"aused"* ]]; then
+        echo ""
+      else 
+        echo ""
+    fi
+  ;;
+
+  next)
+    bash -c "$next" ;;
+  prev)
+    bash -c "$prev" ;;
+  toggle)
+    bash -c "$toggle" ;;
+  title)
+    if [[ $appMusic == *"spotify"* ]]; then
+      bash -c "$title"
+    else
+      echo "No title found"
+    fi
+    ;;
+  artist)
+    bash -c "$artist" ;;
+  stop)
+    bash -c "$stop" ;;
+  album)
+    bash -c "$album" ;;
+  len)
+    if [[ $length == "A" ]]; then
+      echo "null"
+    else
+      echo $length
+    fi
+    ;;
+  position)
+    if [[ $position == "B" ]]; then
+      echo "null"
+    else
+      echo $position
+    fi
+    ;;
+  shuffle)
+    getShuffle ;;
+  art)
+    if [[ $appMusic = *"spotify"* ]]; then
+      getArtSpo
+    else
+      echo "../images/icons/icons_control/temp.jpeg"
+    fi
+  ;;
+  loop)
+    getLoop ;;
+esac

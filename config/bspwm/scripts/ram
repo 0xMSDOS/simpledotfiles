@@ -1,0 +1,19 @@
+#!/bin/sh
+
+function get(){
+  free -m | grep Mem | awk '{print ($3/$2)*100}' | tr '.' ' ' | awk '{print $1}'
+}
+
+function getMB(){
+  free -m | grep Mem | awk '{print $3}'
+}
+
+
+if [[ $1 == "ram" ]]; then
+  get
+fi
+
+if [[ $1 == "mb" ]]; then
+  getMB
+fi
+

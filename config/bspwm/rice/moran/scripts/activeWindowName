@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+#                                 By 0xMsDos
+#
+#               ________________________________________________
+#               |      _____________________________           |
+#               | [][] _____________________________ [_][_][_] |
+#               | [][] [_][_][_] [_][_][_][_] [_][_] [_][_][_] |
+#               |                                              |
+#               | [][] [][][][][][][][][][][][][][_] [][][][]  |
+#               | [][] [_][][][][][][][][][][][][][] [][][][]  |
+#               | [][] [__][][][][][][][][][][][][_] [][][][]  |
+#               | [][] [___][][][][][][][][][][][__] [__][][]  |
+#               |          [_][______________][_]              |
+#               |______________________________________________|
+#
+
+getID=$(xdotool getactivewindow)
+getPID=$(xprop -id "$getID" | grep 'NET_WM_PID(CARDINAL) =' | head -n1 | awk '{print $NF}')
+getDistroName=$(lsb_release -a | grep 'Description:' | awk '{print $2, $3}')
+
+getWinName=$(xdotool getactivewindow getwindowname)
+getName=$(ps -p "$getPID" -o comm=)
+output_Process_Name() {
+
+  if [[ $getID =~ ^[0-9] ]]; then
+    resiz="  $getWinName"
+    maxlen=50
+    if test $(echo $resiz | wc -c) -ge $maxlen; then
+      sufix=" ..."
+    fi
+    echo -e "${resiz:0:$maxlen}$sufix"
+  else
+    echo "$getDistroName"
+  fi
+}
+
+
+case $1 in 
+  --name)
+    output_Process_Name | head -n1
+    ;;
+esac
+
+
+

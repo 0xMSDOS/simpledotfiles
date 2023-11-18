@@ -1,0 +1,91 @@
+#
+#████████▄  ███    █▄  ███▄▄▄▄      ▄████████     ███        ▄████████  ▄████████ 
+#███   ▀███ ███    ███ ███▀▀▀██▄   ███    ███ ▀█████████▄   ███    ███ ███    ███ 
+#███    ███ ███    ███ ███   ███   ███    █▀     ▀███▀▀██   ███    ███ ███    █▀  
+#███    ███ ███    ███ ███   ███   ███            ███   ▀  ▄███▄▄▄▄██▀ ███        
+#███    ███ ███    ███ ███   ███ ▀███████████     ███     ▀▀███▀▀▀▀▀   ███        
+#███    ███ ███    ███ ███   ███          ███     ███     ▀███████████ ███    █▄  
+#███   ▄███ ███    ███ ███   ███    ▄█    ███     ███       ███    ███ ███    ███ 
+#████████▀  ████████▀   ▀█   █▀   ▄████████▀     ▄████▀     ███    ███ ████████▀  
+#                                                           ███    ███            
+
+[global]
+
+monitor = 0
+follow = mouse
+width = 300
+height = 64
+origin = bottom-right
+offset = 10x10
+indicate_hidden = yes
+shrink = yes 
+
+transparency = 0
+separator_height = 2
+padding = 10
+horizonal_padding = 10
+frame_width = 1
+separator_color = "#c8b38d"
+
+sort = yes
+idle_threshold = 120
+font = monospace 8
+
+line_height = 0
+markup = full
+format = "<b><i>%s</i></b>\n%b"
+alignment = left
+show_age_threshold = 60
+ellipsize = middle
+ignore_newline = no
+stack_duplicates = true
+hide_duplicate_count = true
+show_indicators = false
+icon_position = left
+sticky_history = yes
+history_length = 20
+icon_path = /usr/share/icons/gruvbox-dark-icons-gtk/16x16/status:/usr/share/icons/gruvbox-dark-icons-gtk/16x16/devices:/usr/share/icons/gruvbox-dark-icons-gtk/symbolic/status:/usr/share/icons/gruvbox-dark-icons-gtk/symbolic/status:/usr/share/icons/gruvbox-dark-icons-gtk/16x16/apps:/usr/share/icons/gruvbox-dark-icons-gtk/16x16/panel
+max_icon_size = 48
+min_icon_size = 16
+
+browser = firefox
+title = Dunst
+class = Dunst
+corner_radius = 0
+icon_corner_radius = 5
+force_xinerama = false
+always_run_script = true
+
+
+mouse_left_click = close_current
+mouse_middle_click = do_action
+mouse_right_click = close_all
+
+[urgency_low]
+background = "#161418"
+foreground = "#d2d1d2"
+frame_color = "#161418"
+timeout = 2
+#script = ~/.local/share/sounds/notify.sh
+
+[urgency_normal]
+background = "#161418"
+foreground = "#d2d2d2"
+frame_color = "#161418"
+timeout = 8
+script = ~/.local/share/sounds/notify.sh
+
+[urgency_critical]
+background = "#CD1818"
+foreground = "101419"
+timeout = 15
+script = ~/.local/share/sounds/notify_C.sh
+
+
+[spotify]
+summary = "*"
+script = "~/.config/bspwm/scripts/getMusicArt art"
+
+[spotify-icon]
+appname = "spotify"
+icon = "/tmp/spotifytmp/cover.png"

@@ -1,0 +1,54 @@
+
+;; EWW PATH
+(defvar eww "/usr/bin/eww -c $HOME/.config/bspwm/rice/moran")
+;; Workspace
+(deflisten workspace "scripts/workspace")
+;; Win Name
+(defpoll xtitle :interval "0.1s" "scripts/activeWindowName --name")
+;;(deflisten workspace "scripts/workspace")
+
+;; Volume
+(defvar volum false)
+(defpoll volume_icon :interval "1s" "volume --icon")
+(defpoll volumen :interval "1s" "volume --percentage")
+(defpoll volume_value :interval "1s" "volume --vol")
+(defpoll volume_set :interval "1s"  "volume --set")
+
+;; Time
+(defpoll time :interval "10s" "date '+%H:%M %b %d, %Y'")
+(defpoll hour	:interval "1s"	"date '+%H'")
+(defpoll min	:interval "1s"	"date '+%M'")
+
+;; Weather
+(defpoll emoji :interval "2h" `init.sh icon`)
+(defpoll temp :interval "2h" `init.sh  temp`)
+(defpoll city :interval "2h" `init.sh city`)
+
+;; Night Light
+(defpoll process :interval "1s" `nightLight process`)
+
+;; Pacman
+(defpoll package :interval "2m" `updates packages`)
+(defpoll pacman-icon :interval "1s" `updates icon`)
+
+
+;; Network
+(defpoll WIFIICON :interval "10s" `scripts/wifi --icon`)
+(defpoll NETSTAT :interval "10s" `scripts/wifi --stat`)
+
+;; Cal
+(defpoll calendar_day :interval "10h" "date '+%d'")
+(defpoll calendar_month :interval "10h" "date '+%m'")
+(defpoll calendar_year :interval "10h" "date '+%Y'")
+
+;; Sys
+(defpoll cpu :interval "3s" "cpu")
+(defpoll ram :interval "3s" "ram ram")
+(defpoll ram_mb :interval "3s" "ram mb")
+(defpoll disk :interval "3s" "disk")
+(defpoll tempe :interval "3s" "temp get")
+
+;; Battery
+(defpoll bat_capacity :interval "1s" "battery getBat")
+(defpoll bat_status :interval "3s" "battery status")
+(defpoll bat_icon :interval "1s" "battery getIcon")

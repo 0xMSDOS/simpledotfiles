@@ -1,0 +1,474 @@
+
+@import "../_colors.scss";
+
+.text {
+  color: #E3DDD3;
+  font-weight: bold;
+  font-family: Iosevka Nerd Font;
+  padding: 5px;
+  margin: 5px;
+}
+
+.logout-bn {
+  background-repeat: no-repeat;
+  background-color: $contrastbg;
+  background-size: 40px;
+  background-position: center;
+  border-radius: 10px;
+  padding: 1px 15px 1px 15px;
+  margin: 0.5rem;
+
+  &:hover {background-color: #F7DDD0;}
+}
+
+// ??
+
+//
+
+.namebox {
+    background-color: $contrastbg;
+    padding: 0.1em 0.2em 0.1em 0.2em;
+    margin: 0.4em;
+    border-radius: 15px;
+    min-height: 0px;
+}
+
+.centerbox {
+    background-color: $bgSecondary; // #CFB997
+}
+
+.controlbox {
+    font-family: Iosevka Nerd Font;
+    background-color: $contrastbg;
+    border: solid 2px $contrastbg;
+    margin-top: 0.1rem;
+    border-radius: 1.0rem;
+    //box-shadow: 0 0 4px 2px rgba(#151515, 0.6);
+    min-height: 10rem;
+    .cover {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      //box-shadow: 0 0 4px 2px rgba(#ABB3D8, 0.5);
+      border-radius: 1.2rem;
+      min-height: 14rem;
+  
+      .gradient {
+        border-radius: 1rem;
+        background: linear-gradient(to right, rgb(#191919, 1), rgba(#262626, 0.5));
+        text-shadow: 0 0 3px #9ec49f;
+  
+        .info {
+          padding: 1rem;
+  
+          .title {
+            font-size: 1.1rem;
+            font-weight: bolder;
+          }
+  
+          .artist,
+          .album {
+            font-size: 0.5rem;
+            color: #FFF3DA;
+          }
+        }
+        .progress scale trough highlight {
+            background-image: linear-gradient(to right, darken($color: #9ec49f, $amount: 15%), #9ec49f);
+        }
+     
+        .progress scale trough {
+          //all: unset;
+          background-color: rgba(#9ec49f, 0.2);
+          //box-shadow: 0 0 2px 1px rgba(#151515, 0.5);
+          min-height: 0.3rem;
+          margin-bottom: 5px;
+        }
+  
+        .inferior {
+          margin: 0.5rem 1rem 1rem;
+          background-color: transparent;
+  
+          .position {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #ABB3D8;
+	    .time{
+	           color: #FFF3DA;
+	         }
+          }
+          .app {
+            font-size: 1.4rem;
+            color: #9ec49f;
+          }
+          // Delete 
+          .controls {
+            border-radius: 1rem;
+            .previous,
+            .next {
+              font-size: 1.3rem;
+              color: #ABB3D8;
+              background-position: center;
+              background: transparent;
+              font-size: 0.8rem;
+              border: transparent;
+            }
+  
+            .toggle {
+              font-size: 1.6rem;
+              color: #9ec49f;
+              background: transparent;
+              border: transparent;
+            }
+  
+            .shuffle {
+                font-size: 0.8rem;
+                background: transparent;
+                &.on {
+                  color: #15ca1b;
+                  background: transparent;
+                  border: transparent;
+                }
+                &.off {
+                  color: #ABB3D8;
+                  background: transparent;
+                  border: transparent;
+                }
+              }
+            .loop {
+              font-size: 0.8rem;
+              background: transparent;
+              &.on {
+                color: #15ca1b;
+                background: transparent;
+                border: transparent;
+              }
+              &.off {
+                color: #ABB3D8;
+                background: transparent;
+                border: transparent;
+              }
+            }
+          }
+        }
+      }
+}
+}
+
+.controller-box {
+  margin: 0.1rem 0.5rem 0.1rem;
+  //border-radius: 10px;
+}
+
+// Calendar
+.calendar-box {
+  background-color: $contrastbg;
+  border-radius: 15px;
+  font-family: Cambria;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+
+  .call-inner-box {
+          margin: 0 1px;
+
+  .cal {
+        background-color: transparent;
+        border: transparent;
+         &.highlight {
+            padding: 1px;
+        }
+        padding: 0.5rem 0.3rem 0rem;
+      }
+  }
+}
+
+calendar:selected {
+  color: $gruvbox-red;
+}
+calendar.header {
+  color: $gruvbox-yellow;
+  font-weight: bold;
+}
+
+calendar.button {
+  color: #cc241d;
+  font-weight: bold;
+ 
+}
+
+calendar.highlight {
+  color: $nord-aurora-purple;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: $gruvbox-blue;
+}
+
+//
+
+.bright-ctl {
+  font-family: Iosevka Nerd Font Mono;
+  background-color: #1c1a1a;
+  padding: 0.1rem;
+  border-radius: 1rem;
+  * {
+    all: unset;
+  }
+
+  label {
+    font-size: 40px;
+    padding: 0 .8rem;
+    color: #efe97f;
+  }
+  & .scale scale trough {
+    background-color: #d5c4a1;
+    border-radius: 1rem;
+    min-height: 50px;
+    min-width: 300px;
+  }
+ & .scale trough highlight {
+  background: linear-gradient(to right, #ECB365, #E7AB79);
+  border-radius: 1rem;
+ }
+}
+
+//  Widgets Status Control
+.controller-s{
+  background-color: $contrastbg;
+  border-radius: 1.0rem;
+  padding-left: 1.0rem;
+  padding-right: 0.5rem;
+  border: solid 2px #301929;
+}
+
+// Bluetooth
+
+.controller-buttons-box {
+  margin: 5px 5px 0px 5px;
+  border-radius: 50px;
+}
+
+.controller-button {
+  padding: 5px 9px 4px 7px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.controller-arrow-btn {
+  padding: 6px 8px 6px 7px;
+}
+
+.controller-button-on {
+  background-color: $bgSecondary;
+  border-radius: 15px 0px 0px 15px;
+}
+
+.controller-button-off {
+  border-radius: 15px 0px 0px 15px;
+  background-color: #F2EBE2;
+  color: $black;
+}
+
+.controller-arrow-btn {
+  color: #5C8374;
+}
+
+.controller-arrow-btn-on {
+  background-color: $bgSecondary;
+  border-radius: 0px 12px 12px 0px;
+}
+
+.controller-arrow-btn-off {
+  background-color: #909795;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.controller-label {
+  font-size: 10px;
+  padding: 10px 0px 0px 5px;
+  color: $bg;
+}
+
+// Airplane
+
+.airplane-buttons-box {
+  margin: 5px 5px 0px 5px;
+  border-radius: 50px;
+}
+
+.airplane-button {
+  padding: 5px 7px 4px 7px;
+  font-size: 22px;
+}
+
+.airplane-arrow-btn {
+  padding: 6px 8px 6px 6px;
+}
+
+.airplane-button-on {
+  background-color: #4255ac;
+  border-radius: 15px 0px 0px 15px;
+}
+
+.airplane-button-off {
+  border-radius: 15px 0px 0px 15px;
+}
+
+.airplane-arrow-btn {
+  color: #5C8374;
+}
+
+.airplane-arrow-btn-on {
+  background-color: #040D12;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.airplane-arrow-btn-off {
+  background-color: #148F77;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.airplane-label {
+  font-size: 10px;
+  padding: 10px 0px 0px 5px;
+}
+
+// Widgets 
+
+.widgets-buttons-box {
+  margin: 5px 5px 0px 5px;
+  border-radius: 50px;
+}
+
+.airplane-button {
+  padding: 5px 7px 4px 7px;
+  font-size: 22px;
+}
+
+.airplane-arrow-btn {
+  padding: 6px 8px 6px 7px;
+}
+
+.airplane-button-on {
+  background-color: #4255ac;
+  border-radius: 15px 0px 0px 15px;
+}
+
+.airplane-button-off {
+  border-radius: 15px 0px 0px 15px;
+}
+
+.airplane-arrow-btn {
+  color: #5C8374;
+}
+
+.airplane-arrow-btn-on {
+  background-color: #040D12;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.airplane-arrow-btn-off {
+  background-color: #148F77;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.airplane-label {
+  font-size: 10px;
+  padding: 10px 0px 0px 5px;
+}
+
+// Controls
+.controls {
+  border-radius: 1rem;
+  .previous,
+  .next {
+    font-size: 1.3rem;
+    color: #ABB3D8;
+    background-position: center;
+    background: transparent;
+    font-size: 0.8rem;
+    border: transparent;
+  }
+
+  .toggle {
+    font-size: 1.6rem;
+    color: #9ec49f;
+    background: transparent;
+    border: transparent;
+  }
+
+  .shuffle {
+      font-size: 0.8rem;
+      background: transparent;
+      &.on {
+        color: #15ca1b;
+        background: transparent;
+        border: transparent;
+      }
+      &.off {
+        color: #ABB3D8;
+        background: transparent;
+        border: transparent;
+      }
+    }
+  .loop {
+    font-size: 0.8rem;
+    background: transparent;
+    &.on {
+      color: #15ca1b;
+      background: transparent;
+      border: transparent;
+    }
+    &.off {
+      color: #ABB3D8;
+      background: transparent;
+      border: transparent;
+    }
+  }
+}
+
+// Powermenu
+.power-firtsbox {
+  background-color: $bgSecondary;
+  padding: 15px 10px 15px 10px;
+  .power-off-box{
+    background-color: $contrastbg;
+    padding: 5px 20px 5px 20px;
+    border-radius: 10px;
+
+    .poweroff-btn {
+      font-family: Iosevka Nerd Font Mono;
+      font-size: 50px;
+      color: $red;
+      font-weight: bold;
+      background-color: transparent;
+      border: transparent;
+      border-radius: 15px;
+      text-shadow: 0px 0px 10px $gruvbox-red;
+    }
+    
+    .reboot-btn {
+      font-family: Iosevka Nerd Font Mono;
+      font-size: 50px;
+      color: $green;
+      font-weight: bold;
+      background-color: transparent;
+      border: transparent;
+      border-radius: 15px;
+      text-shadow: 0px 0px 10px $gruvbox-green;
+    }
+
+    .lock-btn {
+      font-family: Iosevka Nerd Font Mono;
+      font-size: 50px;
+      color: $yellow;
+      font-weight: bold;
+      background-color: transparent;
+      border: transparent;
+      border-radius: 15px;
+      text-shadow: 0px 0px 10px $gruvbox-yellow;
+    }
+  }
+}

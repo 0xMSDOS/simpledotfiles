@@ -1,0 +1,163 @@
+// * Mod by   -- 0xMsDos
+
+configuration {
+    modi: "drun";
+    disable-history:  true;
+    sidebar-mode:   false;
+    drun-display-format:  "{name}";
+    combi-modi: "window, drun, ssh";
+    icon-theme: "Papirus-Dark";
+    application-fallback-icon:  "Adwaita";
+  }
+
+* {
+    background:   #0d0d0d;
+    background-alt: #3F342E;
+    foreground:   #076669;
+    selected:   #A1B178;
+  }
+
+window {
+    transparency:   "real";
+    location:   center;
+    anchor:     center;
+    fullscreen: false;
+    width:    500px;
+    height:   39%;
+    x-offset:   0px;
+    y-offset:   0px;
+
+    enabled:    true;
+    border-radius:  6px;
+    cursor:   "default";
+    background-color: @background;
+}
+
+mainbox {
+    enabled:  true;
+    spacing:  0px;
+    background-color: transparent;
+    orientation:  vertical;
+    children: [ "inputbar", "listbox" ];
+  }
+
+
+listbox {
+    spacing:  10px;
+    padding:  10px 5px 10px 5px;
+    background-color: @background;
+    orientation:  vertical;
+    children: [ "message", "listview" ];
+  }
+
+inputbar {
+    enabled:  true;
+    spacing:  10px;
+    background-color: @background;
+    text-color:   #fbf1c7;
+    children:   [ "textbox-prompt-colon", "entry" ];
+  }
+
+
+textbox-prompt-colon {
+    enabled:      true;
+    expand:       false;
+    str:          "󱚾 ";
+    padding:      10px 17px 10px 17px;
+    border-radius: 5px;
+    background-color:  @background;
+    text-color:   inherit;
+    color:  #cccccc;
+  }
+
+
+entry {
+    enabled:    true;
+    expand:     true;
+    padding:    10px 10px;
+    border-radius: 15px;
+    background-color:   @background;
+    text-color:   inherit;
+    cursor:       text;
+    placeholder:    "";
+    placeholder-color:    inherit;
+  }
+
+dummy {
+    expand: true;
+    background-color: transparent;
+  }
+
+
+listview {
+    enabled:    true;
+    columns:  1;
+    cycle:  false;
+    dynamic:  true;
+    scrollbar:  false;
+    layout: vertical;
+    reverse:  false;
+    fixed-height: true;
+    fixed-columns:  true;
+
+    spacing: 0px;
+    background-color: transparent;
+    text-color: #FFFFFF;
+    cursor: "default";
+  }
+
+element {
+    enabled: true;
+    spacing: 5px;
+    border-radius: 1px;
+    background-color: transparent;
+    text-color:   #BFC1C1;
+    cursor:   pointer;
+  }
+
+element normal.normal {
+    background-color: inherit;
+    text-color: inherit;
+  }
+
+
+element selected.normal {
+      background-color: #b9b9b9;
+      text-color:       #000000;
+    }
+
+element-icon {
+    background-color: transparent;
+    text-color: inherit;
+    size: 24px;
+    cursor: inherit;
+  }
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    cursor: inherit;
+    vertical-align: 0.5;
+    horizontal-align: 0.0;
+  }
+
+message {
+    background-color: transparent;
+  }
+
+textbox {
+    padding:  12px;
+    border-radius:  5px;
+    background-color: @background;
+    text-color: #090C0D;
+    vertical-align: 0.5;
+    horizontal-align: 0.0;
+  }
+
+error-message {
+    padding:  12px;
+    border-radius: 5px;
+    background-color: #0B0F10;
+    text-color: #A1B178;
+  }
+

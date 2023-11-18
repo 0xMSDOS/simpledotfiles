@@ -1,0 +1,105 @@
+#! /bin/sh
+
+##################################################
+#▄▄▄▄· .▄▄ ·  ▄▄▄·▄▄▌ ▐ ▄▌• ▌ ▄ ·. ▄▄▄   ▄▄·     #
+#▐█ ▀█▪▐█ ▀. ▐█ ▄███· █▌▐█·██ ▐███▪▀▄ █·▐█ ▌▪    #	
+#▐█▀▀█▄▄▀▀▀█▄ ██▀·██▪▐█▐▐▌▐█ ▌▐▌▐█·▐▀▀▄ ██ ▄▄	 # By 0xMs-Dos
+#██▄▪▐█▐█▄▪▐█▐█▪·•▐█▌██▐█▌██ ██▌▐█▌▐█•█▌▐███▌    #  
+#·▀▀▀▀  ▀▀▀▀ .▀    ▀▀▀▀ ▀▪▀▀  █▪▀▀▀.▀  ▀·▀▀▀     #
+##################################################
+
+# Import VARS
+export PATH="$PATH:$HOME/.config/bspwm/scripts/"
+PATH="$HOME/.local/bin:$PATH"
+
+spacefloat &
+# Fix java apps
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# XRDB
+xrdb -merge ~/.Xresources
+
+# Functions 
+
+c() { bspc config "$@" &}
+r() { bspc rule -a "$@" &}
+
+#s() { pkill -x "$1"; { sleep 0.1; "$@" &}; }
+
+# Rules 
+r Gimp desktop='^8' state=floating follow=on 
+r Chromium desktop='^2'
+r firefox desktop='^2' follow=on focus=on
+r Spotify desktop='^8' state=pseudo_tiled follow=on
+r Pavucontrol state=floating center=on
+r mpv  state=floating
+r qimgv state=floating
+
+# Config 
+
+c focus_follows_pointer true 
+c pointer_follows_focus false 
+c pointer_motion_interval 5
+c pointer_modifier mod4
+c pointer_action1 move 
+c pointer_action2 resize_side
+c pointer_action3 resize_corner
+
+c ignore_ewmh_fullscreen off 
+c window_gap 16
+c single_monocle true 
+c gapless_monocle false 
+c borderless_monocle false 
+c split_ratio 0.51
+
+# Monitor 
+
+bspc monitor -d '1' '2' '3' '4' '5' '6' '7' '8' '9'
+
+# Terminate already procesess
+procesess=("eww" "tint2")
+
+for process in "${procesess[@]}"; do
+  if pidof -q "$process"; then
+    pkill -9 "$process" > /dev/null
+  fi 
+done 
+
+sleep 0.15
+
+# Polkit for apps priviliged
+pgrep -x polkit-gnome-au > /dev/null || /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# Running Apps
+
+# Run Eww 
+eww -c $HOME/.config/bspwm/rice/moran/ open bar
+eww -c $HOME/.config/bspwm/rice/moran/controls/ daemon
+
+# Run Dunst 
+dunst -config "$HOME"/.config/bspwm/dunstrc &
+
+# Run Sxhkd Keybinds
+sxhkd -c $HOME/.config/bspwm/sxhkdrc &
+
+# Run Tint2 Buttons 
+tint2 -c $HOME/.config/tint2/appsButtons.tint2rc &
+tint2 -c $HOME/.config/tint2/ssButton.tint2rc &
+
+# Cursor 
+xsetroot --cursor_name left_ptr
+
+# Wallpapper
+feh --bg-fill $HOME/.config/bspwm/rice/moran/Wallpapers/wallpaper09.jpg &
+
+# Run Picom 
+picom --config $HOME/.config/bspwm/rice/moran/picom.conf &
+
+# Run Polybar Systray
+polybar -q tray -c $HOME/.config/bspwm/rice/moran/polybar_tray.ini
+
+# Win Float 
+#spacefloat &
+
+# Touchpad Gestures 
+libinput-gestures-setup start &

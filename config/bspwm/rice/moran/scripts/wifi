@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+ID=$(ip link | awk '/state UP/ {print $2}')
+SSID=$(iwgetid -r)
+NIC=$(ifconfig | grep "wl" | sed -e s/:/" "/ | awk '{print $1}')
+STATUS=$(nmcli -f GENERAL.STATE con show "$SSID" | awk '{print $2}')
+STRENGTH=$(awk 'NR==3 {printf("%.0f",$3*10/7)}' /proc/net/wireless)
+
+
+net_stat () {
+if (ping -c 1 archlinux.org || ping -c 1 google.com) &>/dev/null; then
+	if [[ $ID == e* ]]; then
+		echo "Online"
+		echo "󰈀 |"
+	else
+		echo "$SSID"
+		echo "󱚻 |"
+	fi
+else
+	echo "Offline"
+	echo "󰤭 |"	
+fi
+}
+
+function toggle () {
+  if [[ $STATUS == "activada" ]]; then
+        notify-send --icon=$HOME/.config/bspwm/notifyIcons/disconnect.png --urgency=critical "Wi-Fi Disconnected" "Wi-Fi has been turned off!"
+        nmcli radio wifi off
+    else
+        notify-send --icon=$HOME/.config/bspwm/notifyIcons/connect.png --urgency=normal "Wi-Fi Connected" "Wi-Fi has been turned on, you are back online!"
+        nmcli radio wifi on
+    fi
+}
+
+function icons() {
+    if [[ "$STRENGTH" -ge "75" ]]; then
+        echo "󰤨 "
+    elif [[ "$STRENGTH" -ge "50" ]]; then
+        echo "󰤥 "
+    elif [[ "$STRENGTH" -ge "25" ]]; then
+        echo "󰤢 "
+    elif [[ "$STRENGTH" -gt "0" ]]; then
+        echo "󰤟 "
+    else
+        echo "󰤫 "
+    fi
+}
+
+function status () {
+  if [[ $STATUS == "activada" ]]; then
+    echo "$SSID"
+  else
+    echo "Off"
+  fi
+}
+
+
+function class(){
+    if [[ $STATUS == "activada" ]]; then
+        echo "CO"
+    else
+        echo "D"
+    fi
+}
+
+case "$1" in
+	--stat)
+		net_stat | head -n1;;
+	--icon)
+		net_stat | tail -n1;;
+  --toggle)
+    toggle ;;
+  --icons)
+    icons ;;
+  --status)
+    status ;;
+  --class)
+    class ;;
+esac
