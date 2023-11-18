@@ -59,7 +59,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defwidget time []
   (box :orientation "h" :class "time" :valign "end"
-    (button :onclick "scripts/calendar" :tooltip "${time}" :class "time-hour" "󰅐 ${hour}:${min}")))
+    (button :onclick "scripts/popHour" :tooltip "${time}" :class "time-hour" "󰅐 ${hour}:${min}")))
 
 (defwidget rightH []
   (box :spacing 5 :class "right_hbar" :space-evenly "false" :orientation "h" :halign "end"
@@ -166,23 +166,11 @@
  (bar))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defwindow calendar
+(defwindow popHour
     :geometry (geometry :x "0%"
                         :y "0%"
                         :width "300px"
                         :anchor "center center")
                 :stacking "fg"
                 :windowtype "dialog"
-                (infohour)
-                  )
-
-;;
-
-
-(defwindow battery
-  :geometry (geometry :x "0%"
-                      :y "-1%"
-                      :width "350px"
-                      :anchor "left bottom"
-                      :stacking "overlay")
-                      (progress_bat))
+                (infohour))

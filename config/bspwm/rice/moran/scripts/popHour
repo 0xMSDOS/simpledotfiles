@@ -5,9 +5,9 @@ calendar () {
 
   if [[ ! -f "$FILE" ]]; then
     touch "$FILE"
-    eww -c $HOME/.config/bspwm/rice/moran/ open calendar
+    eww -c $HOME/.config/bspwm/rice/moran/ open popHour
   else
-    eww -c $HOME/.config/bspwm/rice/moran close calendar
+    eww -c $HOME/.config/bspwm/rice/moran close popHour
     rm "$FILE"
   fi 
 
