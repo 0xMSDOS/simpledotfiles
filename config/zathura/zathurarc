@@ -9,43 +9,43 @@ set font "Iosevka 9"
 #
 set notification-error-bg       "#ac8a8c" # Red
 set notification-error-fg       "#f8f8f2" # Foreground
-set notification-warning-bg     "#c6a679" # Orange
+set notification-warning-bg     "#a19782" # BG
 set notification-warning-fg     "#191919" # Selection
-set notification-bg             "#0f0f0f" # Background
+set notification-bg             "#3F2E3E" # Background
 set notification-fg             "#f8f8f2" # Foreground
 
-set completion-bg               "#0f0f0f" # Background
+set completion-bg               "#ac8a8c" # Background
 set completion-fg               "#4c4c4c" # Comment
-set completion-group-bg         "#0f0f0f" # Background
+set completion-group-bg         "#ac8a8c" # Background
 set completion-group-fg         "#4c4c4c" # Comment
 set completion-highlight-bg     "#191919" # Selection
 set completion-highlight-fg     "#f8f8f2" # Foreground
 
-set index-bg                    "#0f0f0f" # Background
-set index-fg                    "#f8f8f2" # Foreground
-set index-active-bg             "#191919" # Current Line
+set index-bg                    "#ac8a8c" # Background
+set index-fg                    "#4D4545" # Foreground
+set index-active-bg             "#3F2E3E" # Current Line
 set index-active-fg             "#f8f8f2" # Foreground
 
-set inputbar-bg                 "#0f0f0f" # Background
-set inputbar-fg                 "#f8f8f2" # Foreground
+set inputbar-bg                 "#ac8a8c" # Background
+set inputbar-fg                 "#4D4545" # Foreground
 set statusbar-bg                "#0f0f0f" # Background
 set statusbar-fg                "#f8f8f2" # Foreground
 
 set highlight-color             "#8aac8b" # Orange
-set highlight-active-color      "#aca98a" # Pink
+set highlight-active-color      "#F2BED1" # Pink
 
-set default-bg                  "#0f0f0f" # Background
+set default-bg                  "#ac8a8c" # Background
 set default-fg                  "#f8f8f2" # Foreground
 
 set render-loading              true
-set render-loading-fg           "#0f0f0f" # Background
+set render-loading-fg           "#ac8a8c" # Background
 set render-loading-bg           "#f8f8f2" # Foreground
 
 # Recolor mode settings
 #
 #
-set recolor-lightcolor          "#0f0f0f" # Background
-set recolor-darkcolor           "#f8f8f2" # Foreground
+set recolor-lightcolor          "#3F2E3E" # Background
+set recolor-darkcolor           "#C3B091" # Foreground
 
 # Startup options
 #
