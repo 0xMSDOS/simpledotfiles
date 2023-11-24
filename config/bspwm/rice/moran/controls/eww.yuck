@@ -114,7 +114,7 @@
         (box :class "power-off-box" :orientation "h" :space-evenly "false"
             (button :class "reboot-btn" :onclick "reboot" :tooltip "Reboot..." "󰑓"))
         (box :class "power-off-box" :orientation "h" :space-evenly "false"
-            (button :class "lock-btn" :onclick "physlock -d" :tooltip "Lock..." "")))))
+            (button :class "lock-btn" :onclick "i3lockColour" :tooltip "Lock..." "")))))
 
 ;;
 (defwidget controlcenter []
