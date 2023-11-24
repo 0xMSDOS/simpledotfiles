@@ -1,0 +1,101 @@
+#!/bin/sh 
+
+#playerStatus=$(playerctl status)
+declare -A playerListPlayer=($(playerctl -l 2>/dev/null))
+declare -A newArray
+
+index=1
+
+while IFS= read -r line; do
+    newArray[$index]=$line
+    ((index++))
+done <<< "${!playerListPlayer[@]}"
+
+
+function playerStatus () {
+
+    if [[ ${newArray[@]} == *"spotify"* ]]; then
+        playerctl -p spotify status 
+    elif [[ ${newArray[@]} == *"firefox"* ]]; then
+        playerctl -p firefox status 
+    elif [[ ${newArray[@]} == *"chromium"* ]]; then
+        playerctl -p chromium status 
+    fi
+}
+
+function playerArtistName () {
+
+   if [[ ${newArray[@]} == *"spotify"* ]]; then
+       playerctl -p spotify metadata xesam:artist | cut -b 1-20
+   elif [[ ${newArray[@]} == *"firefox"* ]]; then
+       playerctl -p firefox metadata xesam:artist | cut -b 1-20 
+   elif [[ ${newArray[@]} == *"chromium"* ]]; then 
+       playerctl -p chromium metadata xesam:artist | cut -b 1-20
+   else 
+       echo "unknown player"
+    fi
+}
+
+function playerTitleName () {
+
+   if [[ ${newArray[@]} == *"spotify"* ]]; then
+       title=$(playerctl -p spotify metadata xesam:title | cut -b 1-20)
+       echo "$title..."
+   elif [[ ${newArray[@]} == *"firefox"* ]]; then
+       title=$(playerctl -p firefox metadata xesam:title | cut -b 1-20)
+       echo "$title..."
+   elif [[ ${newArray[@]} == *"chromium"* ]]; then 
+       title=$(playerctl -p chromium metadata xesam:title | cut -b 1-20) 
+       echo "$title..."
+   else 
+       echo ""
+    fi
+}
+
+function playerPosition () {
+
+   if [[ ${newArray[@]} == *"spotify"* ]]; then
+       playerctl -p spotify position --format "{{ duration(position) }}" 
+   elif [[ ${newArray[@]} == *"firefox"* ]]; then
+       echo "" 
+   elif [[ ${newArray[@]} == *"chromium"* ]]; then 
+       playerctl -p chromium position --format "{{ duration(position) }}"
+   else 
+       echo ""
+    fi
+
+}
+
+function playerIcon () {
+
+   if [[ ${newArray[@]} == *"spotify"* ]]; then
+       echo " " 
+   elif [[ ${newArray[@]} == *"firefox"* ]]; then
+       echo " " 
+   elif [[ ${newArray[@]} == *"chromium"* ]]; then 
+       echo " "
+   else 
+       echo "󰽴"
+    fi
+
+}
+
+if [ $1 == "status" ]; then
+    playerStatus 
+fi
+
+if [ $1 == "artist" ]; then
+    playerArtistName 
+fi
+
+if [ $1 == "title" ]; then
+    playerTitleName 
+fi
+
+if [ $1 == "position" ]; then
+    playerPosition 
+fi
+
+if [ $1 == "icon" ]; then
+    playerIcon 
+fi
