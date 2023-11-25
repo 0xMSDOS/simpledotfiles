@@ -7,11 +7,9 @@ controls () {
     touch "$FILE"
     eww -c $HOME/.config/bspwm/rice/moran/controls/ open search
     eww -c $HOME/.config/bspwm/rice/moran/controls/ open controls
-    eww -c $HOME/.config/bspwm/rice/moran/controls/ open wipowermenu
   else
     eww -c $HOME/.config/bspwm/rice/moran/controls/ close search
     eww -c $HOME/.config/bspwm/rice/moran/controls/ close controls
-    eww -c $HOME/.config/bspwm/rice/moran/controls/ close wipowermenu
     rm "$FILE"
   fi 
 

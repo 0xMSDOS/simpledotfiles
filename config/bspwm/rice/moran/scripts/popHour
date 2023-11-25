@@ -1,16 +1,34 @@
 #!/bin/sh 
 
-calendar () {
-  FILE="$HOME/.cache/calendar.file"
+infoWi () {
+    local FILE="$HOME/.cache/calendar.file"
 
-  if [[ ! -f "$FILE" ]]; then
-    touch "$FILE"
-    eww -c $HOME/.config/bspwm/rice/moran/ open popHour
-  else
-    eww -c $HOME/.config/bspwm/rice/moran close popHour
-    rm "$FILE"
-  fi 
+    if [[ ! -f "$FILE" ]]; then
+        touch "$FILE"
+        eww -c $HOME/.config/bspwm/rice/moran/ open popHour
+    else
+        eww -c $HOME/.config/bspwm/rice/moran close popHour
+        rm "$FILE"
+    fi 
 
 }
 
-calendar
+powermenu () {
+    local FILE="$HOME/.cache/powermenu.file" 
+
+    if [[ ! -f "$FILE" ]]; then
+        touch "$FILE"
+        eww -c $HOME/.config/bspwm/rice/moran/controls/ open wipowermenu
+    else 
+        eww -c $HOME/.config/bspwm/rice/moran/controls close wipowermenu
+        rm "$FILE"
+    fi
+}
+
+if [ "$1" == "infoWi" ]; then
+    infoWi 
+fi
+
+if [ "$1" == "powermenu" ]; then 
+    powermenu 
+fi
