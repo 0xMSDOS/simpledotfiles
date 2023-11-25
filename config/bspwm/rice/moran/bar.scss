@@ -130,21 +130,13 @@ scale trough {
         font-size: 80px;
         font-family: Iosevka Nerd Font Mono;
         font-weight: bold;
-        color: $gruvbox-aqua;
+        color: #eee8d5;
     }
     .blocks-boxes {
         background-color: transparent;
 
-        .block-red{
-            color: $gruvbox-red;
-            font-size: 12px;
-        }
-        .block-green{
-		color: $gruvbox-green;
-            font-size: 12px;
-        }
-        .block-brown{
-            color: $gruvbox-yellow;
+        .block-c{
+            color: #A78295;
             font-size: 12px;
         }
     }
@@ -152,7 +144,7 @@ scale trough {
         font-size: 80px;
         font-family: Iosevka Nerd Font Mono;
         font-weight: bold;
-        color: $gruvbox-aqua;
+        color: #eee8d5;
     }
     
 }
@@ -275,7 +267,7 @@ scale trough {
     padding: 2px 4px 2px 4px;
     
     circular-progress {
-        background-color: #161616;
+        background-color: $bg;
         margin: 5px 5px 5px 5px;
 
         &.ram {

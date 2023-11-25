@@ -1,0 +1,70 @@
+#!/bin/sh 
+
+# [ Colours ]
+
+base1='#493744'
+base2='#eee8d5'
+base3='#E19898'
+base4='#493744'
+yellow='#EDE68A'
+red='#E97777'
+orange='#FABEA7'
+magenta='#804674'
+violet='#BEADFA'
+blue='#7286D3'
+cyan='#7ED7C1'
+green='#C7DCA7'
+black='#41444B'
+
+i3lock \
+    -n \
+    -F \
+    -i ~/.config/bspwm/assets/lock.jpg \
+    --insidever-color=$green \
+    --insidewrong-color=$green \
+    --inside-color=$base2 \
+    --ringver-color=$green \
+    --ringwrong-color=$red \
+    --ring-color=$base2 \
+    --line-uses-ring \
+    --keyhl-color=$black \
+    --bshl-color=$red \
+    --separator-color=$base2 \
+    --verif-color=$green \
+    --verif-font="monospace" \
+    --wrong-color=$red \
+    --wrong-font="Hack-Bold" \
+    --layout-color=$base1 \
+    --layout-font="Hack-Bold" \
+    --date-color=$base1 \
+    --date-str="%a %b %e %Y" \
+    --date-font="Hack-Bold" \
+    --date-size=45 \
+    --time-color=$base4 \
+    --time-str="%H:%M" \
+    --time-font="Big john" \
+    --time-size=120 \
+    --greeter-color=$base1 \
+    --greeter-size=20 \
+    --greeter-font="Hack-Bold" \
+    --date-pos="300:450" \
+    --time-pos="300:390" \
+    --greeter-pos="300:780" \
+    --ind-pos="300:610" \
+    --verif-pos="300:720" \
+    --wrong-pos="300:820" \
+    --verif-text="Verifying..." \
+    --wrong-text="Auth Failed!" \
+    --noinput="No imput" \
+    --lock-text="Locking..." \
+    --lockfailed="Lock Failed" \
+    --greeter-text="Type the password to Unlock" \
+    --radius=20 \
+    --ring-width=20 \
+    --pass-media-keys \
+    --pass-screen-keys \
+    --pass-volume-keys \
+    --blur 1 \
+    --screen 1 \
+    --clock \
+    --indicator \

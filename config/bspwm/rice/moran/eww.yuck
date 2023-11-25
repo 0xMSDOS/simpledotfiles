@@ -72,9 +72,9 @@
     (box :class "infohour-box" :orientation "h" :halign "center" :space-evenly "false" :spacing 15
       (box :class "hour-box" "${hour}")
         (box :class "blocks-boxes" :valign "center" :space-evenly "false" :orientation "v" :spacing 5
-          (box :class "block-red" "")
-            (box :class "block-green" "")
-              (box :class "block-brown" ""))
+          (box :class "block-c" "")
+            (box :class "block-c" "")
+              (box :class "block-c" ""))
                 (box :class "min-box" "${min}"))
                   (box :class "status-box" :spacing 10
                     (nightLight)
