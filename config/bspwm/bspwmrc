@@ -13,6 +13,9 @@ export PATH="$PATH:$HOME/.config/bspwm/scripts/"
 PATH="$HOME/.local/bin:$PATH"
 
 spacefloat &
+$HOME/.config/conky/Mimosa-Light/start.sh &
+
+
 # Fix java apps
 export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -90,16 +93,10 @@ tint2 -c $HOME/.config/tint2/ssButton.tint2rc &
 xsetroot --cursor_name left_ptr
 
 # Wallpapper
-feh --bg-fill $HOME/.config/bspwm/rice/moran/Wallpapers/wallpaper09.jpg &
+feh --bg-fill $HOME/.config/bspwm/assets/lock.jpg &
 
 # Run Picom 
 picom --config $HOME/.config/bspwm/rice/moran/picom.conf &
 
 # Run Polybar Systray
 polybar -q tray -c $HOME/.config/bspwm/rice/moran/polybar_tray.ini
-
-# Win Float 
-#spacefloat &
-
-# Touchpad Gestures 
-libinput-gestures-setup start &
