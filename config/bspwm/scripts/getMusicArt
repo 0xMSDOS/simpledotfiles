@@ -67,7 +67,7 @@ if [[ $appMusic == *"spotify"* ]]; then
 fi
 
 function getArtSpo () {
-  if [ $(playerctl metadata mpris:artUrl) ]; then
+  if [ $(playerctl -p spotify metadata mpris:artUrl) ]; then
     curl -s "$artlink" --output $coverpath
     echo "$coverpath"
   fi
