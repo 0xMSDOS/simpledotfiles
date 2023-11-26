@@ -3,105 +3,105 @@
 # Microphone Controller
 
 function miclevel () {
-  pacmd list-sources | grep "\* index:" -A 7 | grep volume | awk -F/ '{print $2}' | tr -d ' '  | sed 's/%$//'
+    pacmd list-sources | grep "\* index:" -A 7 | grep volume | awk -F/ '{print $2}' | tr -d ' '  | sed 's/%$//'
 }
 
 function getIconMic () {
-  local muted=$(pacmd list-sources | awk '/\*/,EOF {print}' | awk '/muted/ {print $2; exit}')
+    local muted=$(pacmd list-sources | awk '/\*/,EOF {print}' | awk '/muted/ {print $2; exit}')
 
-  if [ "$muted" == "yes" ]; then
-    echo " "
-  else
-    echo " "
-  fi
+    if [ "$muted" == "yes" ]; then
+        echo " "
+    else
+        echo " "
+    fi
 }
 
 function toggleMic () {
-  local muted=$(pacmd list-sources | awk '/\*/,EOF {print}' | awk '/muted/ {print $2; exit}')
-  local default_source=$(pacmd list-sources | awk '/\*/,EOF {print $3; exit}')
+    local muted=$(pacmd list-sources | awk '/\*/,EOF {print}' | awk '/muted/ {print $2; exit}')
+    local default_source=$(pacmd list-sources | awk '/\*/,EOF {print $3; exit}')
 
-  if [ "$muted" == "yes" ]; then
-    dunstify --icon=$HOME/.config/bspwm/notifyIcons/microphone.png --appname=Microphone --urgency=low "Microphone" "Microphone On"
-    pactl set-source-mute "$default_source" 0
-  else
-    dunstify --icon=$HOME/.config/bspwm/notifyIcons/mute.png --appname=Microphone --urgency=normal "Microphone" "Microphone Muted"
-    pactl set-source-mute "$default_source" 1
-  fi
+    if [ "$muted" == "yes" ]; then
+        dunstify --icon=$HOME/.config/bspwm/notifyIcons/microphone.png --appname=Microphone --urgency=low "Microphone" "Microphone On"
+        pactl set-source-mute "$default_source" 0
+    else
+        dunstify --icon=$HOME/.config/bspwm/notifyIcons/mute.png --appname=Microphone --urgency=normal "Microphone" "Microphone Muted"
+        pactl set-source-mute "$default_source" 1
+    fi
 }
 
 function setLevel () {
-  local default_source=$(pacmd list-sources | awk '/\*/,EOF {print $3; exit}')
-  pactl set-source-volume "$default_source" "$1%"
+    local default_source=$(pacmd list-sources | awk '/\*/,EOF {print $3; exit}')
+    pactl set-source-volume "$default_source" "$1%"
 }
 
 
 function increase () {
-  local default_source=$(pacmd list-sources | awk '/\*/,EOF {print $3, exit}')
-  pactl set-source-volume "$default_source" +5%
+    local default_source=$(pacmd list-sources | awk '/\*/,EOF {print $3, exit}')
+    pactl set-source-volume "$default_source" +5%
 }
 
 function decrease () {
-  local default_source=$(pacmd list-sources | awk '/\*/,EOF {print $3, exit}')
-  pactl set-source-volume "$default_source" -5% 
+    local default_source=$(pacmd list-sources | awk '/\*/,EOF {print $3, exit}')
+    pactl set-source-volume "$default_source" -5% 
 }
 
 # Bluetooth Controller
 
 function toggleBlue () {
-  powered=$(bluetoothctl show | grep Powered | awk '{print $2}')
-  if [[ "$powered" == "yes" ]]; then
-    dunstify --icon=$HOME/.config/bspwm/notifyIcons/blueDisconnect.png --appname=Bluetooth --urgency=critical "Bluetooth Disconnected" "Bluetooth has been turned off."
-    bluetoothctl power off
-  else
-    dunstify --icon=$HOME/.config/bspwm/notifyIcons/blueConnect.png --appname=Bluetooth --urgency=low "Bluetooth Connected" "Bluetooth has been turned on."
-    bluetoothctl power on
-  fi
+    powered=$(bluetoothctl show | grep Powered | awk '{print $2}')
+    if [[ "$powered" == "yes" ]]; then
+        dunstify --icon=$HOME/.config/bspwm/notifyIcons/blueDisconnect.png --appname=Bluetooth --urgency=critical "Bluetooth Disconnected" "Bluetooth has been turned off."
+        bluetoothctl power off
+    else
+        dunstify --icon=$HOME/.config/bspwm/notifyIcons/blueConnect.png --appname=Bluetooth --urgency=low "Bluetooth Connected" "Bluetooth has been turned on."
+        bluetoothctl power on
+    fi
 }
 
 function iconBlue () {
-  powered=$(bluetoothctl show | grep Powered | awk '{print $2}')
-  #devices=$(echo info | bluetoothctl | grep 'Device' | wc -c)
-  deviceL=$(echo devices Connected | bluetoothctl | grep 'Device' | wc -l)
+    powered=$(bluetoothctl show | grep Powered | awk '{print $2}')
+    #devices=$(echo info | bluetoothctl | grep 'Device' | wc -c)
+    deviceL=$(echo devices Connected | bluetoothctl | grep 'Device' | wc -l)
 
-  if [[ "$powered" == "no" ]]; then
-    echo "󰂲 "
-  else
-    if [[ $powered == "yes" ]] && [[ $deviceL -gt 0 ]]; then
-    echo "󰂱 "
-  else
-    echo "󰂯 "
+    if [[ "$powered" == "no" ]]; then
+        echo "󰂲 "
+    else
+        if [[ $powered == "yes" ]] && [[ $deviceL -gt 0 ]]; then
+            echo "󰂱 "
+        else
+            echo "󰂯 "
+        fi
     fi
-  fi
 }
 
 function classBlue () {
-  powered=$(bluetoothctl show | grep "Powered: yes" | wc -c)
-  deviceL=$(echo devices Connected | bluetoothctl | grep 'Device' | wc -l)
+    powered=$(bluetoothctl show | grep "Powered: yes" | wc -c)
+    deviceL=$(echo devices Connected | bluetoothctl | grep 'Device' | wc -l)
 
-  if [[ $powered -eq 0 ]]; then
-    echo "D"
-  else
-    if [[ $deviceL -eq 0 ]]; then
-      echo "C"
+    if [[ $powered -eq 0 ]]; then
+        echo "D"
     else
-      echo "DC"
+        if [[ $deviceL -eq 0 ]]; then
+            echo "C"
+        else
+            echo "DC"
+        fi
     fi
-  fi
 }
 
 function statusBlue () {
-  powered=$(bluetoothctl show | grep "Powered: yes" | wc -c)
-  deviceN=$(echo info | bluetoothctl | grep 'Alias:' | awk -F:  '{ print $2 }')
+    powered=$(bluetoothctl show | grep "Powered: yes" | wc -c)
+    deviceN=$(echo info | bluetoothctl | grep 'Alias:' | awk -F:  '{ print $2 }')
 
-  if [[ $powered -eq 0 ]]; then
-    echo "Bluetooth"
-  else
     if [[ $powered -eq 0 ]]; then
-      echo "Bluetooth"
+        echo "Bluetooth"
     else
-      echo "$deviceN"
+        if [[ $powered -eq 0 ]]; then
+            echo "Bluetooth"
+        else
+            echo "$deviceN"
+        fi
     fi
-  fi
 }
 
 STATUS="$(rfkill list | sed -n 2p | awk '{print $3}')"
@@ -117,7 +117,7 @@ function iconAirplane () {
 function toggleAirplane () {
     if [[ $STATUS == "no" ]]; then
         rfkill block all
-	dunstify --icon=$HOME/.config/bspwm/notifyIcons/plane.png --appname=Airplane --urgency=critical  "Airplane Mode" "Airplane mode has been turned on!"
+        dunstify --icon=$HOME/.config/bspwm/notifyIcons/plane.png --appname=Airplane --urgency=critical  "Airplane Mode" "Airplane mode has been turned on!"
     else
         rfkill unblock all
         dunstify --icon=$HOME/.config/bspwm/notifyIcons/airplane_off.png --appname=Airplane --urgency=normal "Airplane Mode" "Airplane mode has been turned off!"
@@ -142,32 +142,32 @@ function statusAirplane () {
 
 
 case $1 in
-  microlevel)
-    miclevel ;;
-  iconmic)
-    getIconMic ;;
-  togglemic)
-    toggleMic ;;
-  setlevel)
-    setLevel "$2" ;;
-  up)
-    increase ;;
-  down)
-    decrease ;;
-  # Bluetooth
-  iconblue)
-    iconBlue ;;
-  toggleblue)
-    toggleBlue ;;
-  classBlue)
-    classBlue ;;
-  statusBlue)
-    statusBlue ;;
-  # Airplane
-  iconAirplane)
-    iconAirplane ;;
-  toggleAirplane)
-    toggleAirplane ;;
-  statusAirplane)
-    statusAirplane ;;
+    microlevel)
+        miclevel ;;
+    iconmic)
+        getIconMic ;;
+    togglemic)
+        toggleMic ;;
+    setlevel)
+        setLevel "$2" ;;
+    up)
+        increase ;;
+    down)
+        decrease ;;
+        # Bluetooth
+        iconblue)
+        iconBlue ;;
+    toggleblue)
+        toggleBlue ;;
+    classBlue)
+        classBlue ;;
+    statusBlue)
+        statusBlue ;;
+        # Airplane
+        iconAirplane)
+        iconAirplane ;;
+    toggleAirplane)
+        toggleAirplane ;;
+    statusAirplane)
+        statusAirplane ;;
 esac

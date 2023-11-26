@@ -15,45 +15,45 @@
 #
 
 case "$1" in
-	--menu)
-		rofi -show drun \
-		-theme $HOME/.config/bspwm/rice/moran/launcher.rasi & disown;;
-	--rice)
-		RiceSelector & disown;;
-	--terminal)
-    alacritty --working-directory="$HOME" & disown;;
-	--floating)
-		alacritty --class FloaTerm,Alacritty & disown;;
-	--update)
-		alacritty --hold --class Updating,Alacritty -e paru -Syyu --devel & disown;;
-	--checkupdates)
-		alacritty --hold --class Updating,Alacritty -e checkupdates & disown;;
-	--ranger)
-		alacritty --class Ranger,Alacritty -e ranger & disown;;
-	--nvim)
-		alacritty -e nvim & disown;;
-	--music)
-		alacritty --class MusicPlayer,Alacritty -e ncmpcpp & disown;;
-  --google)
-    google-chrome-stable & disown;;
-	
-	#Apps
-  --blueberry)
-  blueberry ;;
-  --ethernet)
-  nm-connection-editor ;;
-	--filemanager)
-  thunar "$HOME" &;;
-	--browser)
-		firefox & disown;;
-	--editor)
-		geany & disown;;
-	--telegram)
-		telegram & disown;;
-	--soundcontrol)
-		pavucontrol & disown;;
-	*)
-		echo "Opción no válida";;
+    --menu)
+        rofi -show drun \
+            -theme $HOME/.config/bspwm/rice/moran/launcher.rasi & disown;;
+                --rice)
+                    RiceSelector & disown;;
+                --terminal)
+                    alacritty --working-directory="$HOME" & disown;;
+                --floating)
+                    alacritty --class FloaTerm,Alacritty & disown;;
+                --update)
+                    alacritty --hold --class Updating,Alacritty -e paru -Syyu --devel & disown;;
+                --checkupdates)
+                    alacritty --hold --class Updating,Alacritty -e checkupdates & disown;;
+                --ranger)
+                    alacritty --class Ranger,Alacritty -e ranger & disown;;
+                --nvim)
+                    alacritty -e nvim & disown;;
+                --music)
+                    alacritty --class MusicPlayer,Alacritty -e ncmpcpp & disown;;
+                --google)
+                    google-chrome-stable & disown;;
+
+    #Apps
+    --blueberry)
+    blueberry ;;
+--ethernet)
+    nm-connection-editor ;;
+--filemanager)
+    thunar "$HOME" &;;
+--browser)
+    firefox & disown;;
+--editor)
+    geany & disown;;
+--telegram)
+    telegram & disown;;
+--soundcontrol)
+    pavucontrol & disown;;
+*)
+    echo "Opción no válida";;
 esac
 
 

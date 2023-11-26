@@ -25,20 +25,20 @@ CURRSSID=$(LANGUAGE=c nmcli -t -f active,ssid dev wifi | awk -F: '$1 ~ /^yes/ {p
 
 # If the variable is not empty
 if [[ ! -z $CURRSSID ]]; then
-  HIGHLINE=$(echo "$(echo "$LIST" | awk -F "[ ]{2,}" '{print $1}' | grep -Fxn -m 1 "$CURRSSID" | awk -F ":" '{print $1}') +1" | bc)
+    HIGHLINE=$(echo "$(echo "$LIST" | awk -F "[ ]{2,}" '{print $1}' | grep -Fxn -m 1 "$CURRSSID" | awk -F ":" '{print $1}') +1" | bc)
 fi
-  
+
 
 if [ "$LINENUM" -gt 8 ] && [[ "$CONSTATE" =~ "enabled" ]]; then
-  LINENUM=8
+    LINENUM=8
 elif [[ "$CONSTATE" =~ "disabled" ]]; then
-  LINENUM=1
+    LINENUM=1
 fi
 
 if [[ "$CONSTATE" =~ "enabled" ]]; then
-  TOGGLE="toggle off"
+    TOGGLE="toggle off"
 elif [[ "$CONSTATE" =~ "disabled" ]]; then
-  TOGGLE="toggle on"
+    TOGGLE="toggle on"
 fi
 
 
@@ -52,40 +52,40 @@ CHSSID=$(echo "$CHENTRY" | sed 's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
 
 if [ "$CHENTRY" == "manual" ]; then
     manSSID=$(echo "Ingresa el SSID (SSID, password)" | rofi -dmenu -p "Manual connection: " -theme $HOME/.config/bspwm/rice/moran/wifiL.rasi -columns 1 -lines 1)
-  MSSID=$(echo "$manSSID" | awk -F "," '{print $1}')
-  MPASS=$(echo "$manSSID" | awk -F "," '{print $2}')
-  # Si tenemos una una conexión guardada
-  if [ "$MPASS" = "" ]; then
-    nmcli dev wifi con "$MSSID"
-  else 
-    nmcli dev wifi con "$MSSID" password "$MPASS"
-  fi
+    MSSID=$(echo "$manSSID" | awk -F "," '{print $1}')
+    MPASS=$(echo "$manSSID" | awk -F "," '{print $2}')
+    # Si tenemos una una conexión guardada
+    if [ "$MPASS" = "" ]; then
+        nmcli dev wifi con "$MSSID"
+    else 
+        nmcli dev wifi con "$MSSID" password "$MPASS"
+    fi
 elif [ "$CHENTRY" = "toggle on" ]; then
-  nmcli radio wifi on
+    nmcli radio wifi on
 elif [ "$CHENTRY" = "toggle off" ]; then
-  nmcli radio wifi off
+    nmcli radio wifi off
 else 
 
-  if [ "$CHSSID" == "*" ]; then
-    CHSSID=$(echo "$CHENTRY" | sed 's/\s\{2,\}/\|/g' | awk -F "|" '{print $3}')
-  fi
-  
-  if [[ $(echo "$KNOWCON" | grep "$CHSSID") = "$CHSSID" ]]; then
-    nmcli con up "$CHSSID"
-  else 
-    if [[ "$CHENTRY" =~ "WPA2" ]] || [[ "$CHENTRY" =~ "WEP" ]]; then
-      WIFIPASS=$(echo "Escribe tu contraseña" | rofi -dmenu -p "password: " -lines 1 -theme gruvbox-dark-hard -font "Hack Nerd Font Mono 8")
+    if [ "$CHSSID" == "*" ]; then
+        CHSSID=$(echo "$CHENTRY" | sed 's/\s\{2,\}/\|/g' | awk -F "|" '{print $3}')
+    fi
+
+    if [[ $(echo "$KNOWCON" | grep "$CHSSID") = "$CHSSID" ]]; then
+        nmcli con up "$CHSSID"
+    else 
+        if [[ "$CHENTRY" =~ "WPA2" ]] || [[ "$CHENTRY" =~ "WEP" ]]; then
+            WIFIPASS=$(echo "Escribe tu contraseña" | rofi -dmenu -p "password: " -lines 1 -theme gruvbox-dark-hard -font "Hack Nerd Font Mono 8")
+
+        fi 
+
+        connect=$(nmcli dev wifi con "$CHSSID" password "$WIFIPASS")
+
+        if [ $? -eq 0 ]; then
+            echo "Successful Connection" | rofi -dmenu -p "STATUS: " -theme gruvbox-dark-hard
+        fi
+
 
     fi 
-    
-    connect=$(nmcli dev wifi con "$CHSSID" password "$WIFIPASS")
-    
-    if [ $? -eq 0 ]; then
-      echo "Successful Connection" | rofi -dmenu -p "STATUS: " -theme gruvbox-dark-hard
-    fi
-    
-
-  fi 
 
 fi
 

@@ -6,50 +6,50 @@ DIR="$HOME/.config/bspwm/rice/moran/images/icons/system"
 BRIGHTNESS_STEPS=5
 
 function get_brightness {
-  brightnessctl i | grep -oP '\(\K[^%\)]+'
+    brightnessctl i | grep -oP '\(\K[^%\)]+'
 }
 
 function send_notification {
-  icon="$DIR/brillo.png"
-  brightness=$(get_brightness)
-  dunstify "Brightness $brightness%" -i $icon -r 5555 -u low -h int:value:$(($brightness))
+    icon="$DIR/brillo.png"
+    brightness=$(get_brightness)
+    dunstify "Brightness $brightness%" -i $icon -r 5555 -u low -h int:value:$(($brightness))
 }
 
 function get_Icon {
-  if [[ $(get_brightness) -gt 50 ]]; then 
-    echo "󰃞"
-  else 
-    echo "󰃛"
-  fi 
+    if [[ $(get_brightness) -gt 50 ]]; then 
+        echo "󰃞"
+    else 
+        echo "󰃛"
+    fi 
 }
 
 function statusBrigh () {
     br=$(brightnessctl info | grep "Current" | awk '{print $4}' | sed 's/[(%))]//g')
-  echo $br
+    echo $br
 }
 
 case $1 in
-  up)
-    # increase the backlight by 5%
-    brightnessctl set "${BRIGHTNESS_STEPS:-5}%+" -q
-    send_notification
-    ;;
-  down)
-    # decrease the backlight by 5%
-    brightnessctl set "${BRIGHTNESS_STEPS:-5}%-" -q
-    send_notification
-    ;;
-  icon)
-    get_Icon
-    ;;
-  set)
-    clean=$(echo $2 | tr '.' ' ' | awk '{print $1}')
-    if test $clean -lt 5; then
-      clean=5
-    fi 
-    brightnessctl set $clean% -q
-    send_notification
-    ;;
-  status)
-    statusBrigh ;;
+    up)
+        # increase the backlight by 5%
+        brightnessctl set "${BRIGHTNESS_STEPS:-5}%+" -q
+        send_notification
+        ;;
+    down)
+        # decrease the backlight by 5%
+        brightnessctl set "${BRIGHTNESS_STEPS:-5}%-" -q
+        send_notification
+        ;;
+    icon)
+        get_Icon
+        ;;
+    set)
+        clean=$(echo $2 | tr '.' ' ' | awk '{print $1}')
+        if test $clean -lt 5; then
+            clean=5
+        fi 
+        brightnessctl set $clean% -q
+        send_notification
+        ;;
+    status)
+        statusBrigh ;;
 esac
