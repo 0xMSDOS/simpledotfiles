@@ -60,11 +60,11 @@ c split_ratio 0.51
 bspc monitor -d '1' '2' '3' '4' '5' '6' '7' '8' '9'
 
 # Terminate already procesess
-procesess=("eww" "tint2")
+procesess=("eww")
 
 for process in "${procesess[@]}"; do
   if pidof -q "$process"; then
-    pkill -9 "$process" > /dev/null
+    pkill -9 -f "$process" > /dev/null
   fi 
 done 
 
